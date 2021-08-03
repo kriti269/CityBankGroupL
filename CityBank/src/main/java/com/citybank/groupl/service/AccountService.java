@@ -1,0 +1,14 @@
+package com.citybank.groupl.service;
+
+import java.util.List;
+
+import com.citybank.groupl.bean.Account;
+
+
+public interface AccountService {
+	public List<Account> getAllUserAccounts(int userId);
+	public Account getUserAccount(int userId, int accountTypeId);
+	public int addAccount(int userId, int accountTypeId);
+	public int depositAmount(int userId, int accountId, double amount);
+	public int withdrawAmount(int userId, int accountId, double amount);
+}
