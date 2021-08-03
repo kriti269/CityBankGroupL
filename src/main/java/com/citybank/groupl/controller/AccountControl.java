@@ -75,7 +75,7 @@ public class AccountControl {
 	
 	@RequestMapping(value="/withdraw", method= RequestMethod.POST)
 	public ModelAndView withdrawAmount(HttpServletRequest request, HttpServletResponse response,
-		 @RequestBody  HashMap<String, String> withdrawDetails) {
+		 @RequestBody Map<String, String> withdrawDetails) {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
 		int depositAccount = Integer.parseInt(withdrawDetails.get("account_id"));
 		double depositAmount = Double.parseDouble(withdrawDetails.get("amount"));
