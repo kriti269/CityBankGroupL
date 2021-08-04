@@ -1,6 +1,5 @@
 package com.citybank.groupl.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MimeType;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,6 +76,26 @@ public class AccountControl {
 		int depositAccount = Integer.parseInt(withdrawDetails.get("account_id"));
 		double depositAmount = Double.parseDouble(withdrawDetails.get("amount"));
 		int updated = accountService.withdrawAmount(userId, depositAccount, depositAmount);
+		ModelAndView mav = null;
+		if(updated==1) {
+			mav = new ModelAndView("redirect:/getUserAccounts");
+			mav.addObject("success-deposit","Amount withdrawn successfully!");
+		}
+		else {
+			mav = new ModelAndView("redirect:/getUserAccounts");
+			mav.addObject("error-deposit","Unable to complete withdrawal request!");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/transferFunds", method= RequestMethod.POST)
+	public ModelAndView transferFunds(HttpServletRequest request, HttpServletResponse response,
+		 @RequestBody Map<String, String> transferDetails) {
+		int userId = (Integer) request.getSession().getAttribute("user_id");
+		int fromAccount = Integer.parseInt(transferDetails.get("fromAccount"));
+		int toAccount = Integer.parseInt(transferDetails.get("toAccount"));
+		double depositAmount = Double.parseDouble(transferDetails.get("amount"));
+		int updated = accountService.transferFunds(userId,fromAccount, toAccount, depositAmount);
 		ModelAndView mav = null;
 		if(updated==1) {
 			mav = new ModelAndView("redirect:/getUserAccounts");

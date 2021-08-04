@@ -11,4 +11,5 @@ public interface AccountService {
 	public int addAccount(int userId, int accountTypeId);
 	public int depositAmount(int userId, int accountId, double amount);
 	public int withdrawAmount(int userId, int accountId, double amount);
+	public int transferFunds(int userId, int fromAccountId, int toAccountId, double amount);
 }

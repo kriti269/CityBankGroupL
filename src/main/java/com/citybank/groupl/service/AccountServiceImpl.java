@@ -5,12 +5,22 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.citybank.groupl.DAO.AccountDao;
+import com.citybank.groupl.DAO.TransactionDao;
 import com.citybank.groupl.bean.Account;
 
 @Service
 public class AccountServiceImpl implements AccountService{
 	
 	AccountDao accountDao;
+	TransactionDao transactionDao;
+
+	public TransactionDao getTransactionDao() {
+		return transactionDao;
+	}
+
+	public void setTransactionDao(TransactionDao transactionDao) {
+		this.transactionDao = transactionDao;
+	}
 
 	public AccountDao getAccountDao() {
 		return accountDao;
@@ -40,12 +50,25 @@ public class AccountServiceImpl implements AccountService{
 
 	public int depositAmount(int userId, int accountId, double amount) {
 		// TODO Auto-generated method stub
+		transactionDao.saveTransaction(accountId, amount, "Credit");
 		return accountDao.depositAmount(userId,accountId,amount);
 	}
 	
 	public int withdrawAmount(int userId, int accountId, double amount) {
 		// TODO Auto-generated method stub
+		transactionDao.saveTransaction(accountId, amount, "Debit");
 		return accountDao.withdrawAmount(userId,accountId,amount);
+	}
+
+	public int transferFunds(int userId, int fromAccountId, int toAccountId, double amount) {
+		// TODO Auto-generated method stub
+		transactionDao.saveTransaction(fromAccountId, amount, "Debit");
+		if(accountDao.withdrawAmount(userId, fromAccountId, amount)==1){
+			transactionDao.saveTransaction(toAccountId, amount, "Credit");
+			return accountDao.depositAmount(userId, toAccountId, amount);
+		}
+		return 0;
+	
 	}
 
 }
