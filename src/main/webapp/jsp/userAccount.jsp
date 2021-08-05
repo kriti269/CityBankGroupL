@@ -8,6 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>List of Books</title>
+<link href="resources/css/main.css" rel="stylesheet" type="text/css">
+<link href="resources/css/userAccount.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -15,26 +17,28 @@
 	<%-- <c:if test="${sessionScope.user_id != null}">
 		<h1>Welcome ${sessionScope.user_id}</h1>
 	</c:if> --%>
-	<table>
-		<tr>
-			<th>Account Type</th>
-			<th>Balance</th>
-			<th></th>
-		</tr>
+	<div class="navbar">
+		<img class="logo" src="resources/images/logo.JPG">
+	</div>
+	<div class="container">
+		
+	
+			<c:forEach items="${accounts}" var="account" varStatus="tagStatus">
+			<div class="account-bar">
+				<div class="account-head">${account.accountType.typeName}</div>
+				<div class="account-body">
+					CBS0000${account.accountId}
+					${account.balance}
+				</div>
+				
+			</div>
+					
+					
+					
+	
+	
+			</c:forEach>
 
-		<c:forEach items="${accounts}" var="account" varStatus="tagStatus">
-
-			<tr>
-				<td>${account.accountType.typeName}</td>
-				<td>${account.balance}</td>
-
-
-
-
-
-			</tr>
-		</c:forEach>
-	</table>
-
+	</div>
 </body>
 </html>
