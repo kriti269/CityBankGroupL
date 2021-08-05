@@ -16,6 +16,7 @@ public class User implements Serializable{
 	private String gender;
 	private Address address;
 	private boolean isAdmin;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -66,7 +67,7 @@ public class User implements Serializable{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
 	public void setIsAdmin(boolean isAdmin) {

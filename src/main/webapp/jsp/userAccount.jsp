@@ -7,15 +7,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>List of Books</title>
+<title>Account</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <link href="resources/css/userAccount.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 	<jsp:directive.include file = "header.jsp" />
-	<%-- <c:if test="${sessionScope.user_id != null}">
-		<h1>Welcome ${sessionScope.user_id}</h1>
-	</c:if> --%>
 	<div class="container">
 			<c:forEach items="${accounts}" var="account" varStatus="tagStatus">
 			<div class="account-bar">
