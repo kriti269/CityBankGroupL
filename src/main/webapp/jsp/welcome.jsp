@@ -1,27 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Welcome</title>
+	<meta charset="ISO-8859-1">
+	<title>Welcome</title>
+	<link href="resources/css/welcome.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-
-	<table>
-		<tr>
-			<!-- first name from model set in controller class  -->
-			<td>Welcome ${firstname}</td>
-		</tr>
-		<tr>
-		</tr>
-		<tr>
-		</tr>
-		<tr>
-			<!--  Link to Home page -->
-			<td><a href="<%=request.getContextPath()%>/jsp/home.jsp">Home</a></td>
-		</tr>
-	</table>
-
+	<jsp:directive.include file = "header.jsp" />
+	<div style="padding-left:20px; margin-top: 50px;">
+		<jsp:directive.include file = "register.jsp" />
+	</div>
 </body>
 </html>

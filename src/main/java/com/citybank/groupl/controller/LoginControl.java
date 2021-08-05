@@ -1,5 +1,9 @@
 package com.citybank.groupl.controller;
 
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -82,10 +86,14 @@ public class LoginControl {
 		// check if user found
 		if (user != null) {
 			session.setAttribute("user_id", user.getUserId());
+			session.setAttribute("is_admin", user.isAdmin());
 			// set view welcome.jsp
 			mav = new ModelAndView("welcome");
 			// set user's first name as object
-			
+			if(user.isAdmin()) {
+				// set model
+				mav.addObject("user", new User());
+			}
 			mav.addObject("firstname", user.getLogin().getLoginId());
 		} else {
 			// set view as login.jsp
@@ -93,8 +101,18 @@ public class LoginControl {
 			// set login error message
 			mav.addObject("message", "Username or Password is wrong!!");
 		}
-
 		return mav;
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		//remove logged in user details
+		session.setAttribute("user_id", null);
+		session.setAttribute("is_admin", null);
+		// set view welcome.jsp
+		RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
+		RequetsDispatcherObj.forward(request, response);
 	}
 
 }

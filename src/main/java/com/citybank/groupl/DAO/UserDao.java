@@ -77,7 +77,7 @@ public class UserDao {
 	}
 
 	public User getUserByLogin(Login login) {
-		String sql = "select * from user where login_id=?";
+		String sql = "select *, is_admin as isAdmin from user where login_id=?";
 		User user = null;
 		try {
 			// executes the query and maps the row to User model.

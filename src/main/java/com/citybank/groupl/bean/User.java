@@ -69,9 +69,7 @@ public class User implements Serializable{
 	public boolean isAdmin() {
 		return isAdmin;
 	}
-	public void setAdmin(boolean isAdmin) {
+	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	
-	
 }
