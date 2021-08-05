@@ -1,5 +1,7 @@
 package com.citybank.groupl.service;
 
+import java.util.List;
+
 import com.citybank.groupl.bean.Address;
 import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
@@ -29,4 +31,6 @@ public interface UserService {
 	Login saveLogin(Login login);
 	
 	User validateUser(Login login);
+	
+	List<User> getAllUsers();
 }
