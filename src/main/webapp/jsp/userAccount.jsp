@@ -12,17 +12,11 @@
 <link href="resources/css/userAccount.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-
+	<jsp:directive.include file = "header.jsp" />
 	<%-- <c:if test="${sessionScope.user_id != null}">
 		<h1>Welcome ${sessionScope.user_id}</h1>
 	</c:if> --%>
-	<div class="navbar">
-		<img class="logo" src="resources/images/logo.JPG">
-	</div>
 	<div class="container">
-		
-	
 			<c:forEach items="${accounts}" var="account" varStatus="tagStatus">
 			<div class="account-bar">
 				<div class="account-head">${account.accountType.typeName}</div>
@@ -30,13 +24,7 @@
 					CBS0000${account.accountId}
 					${account.balance}
 				</div>
-				
 			</div>
-					
-					
-					
-	
-	
 			</c:forEach>
 
 	</div>
