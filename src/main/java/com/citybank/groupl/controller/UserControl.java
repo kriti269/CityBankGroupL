@@ -1,6 +1,7 @@
 package com.citybank.groupl.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,32 +20,15 @@ import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
 import com.citybank.groupl.service.UserService;
 
-/**
- * @since 11-07-2021
- * @author Group L - Kriti, Jatin, Varun, Sonia
- * @serial 1.0
- * @summary Controller class for Login URLs. It handles login page request and
- *          facilitates user login.
- */
-
-/*
- * Date - 11-07-2021 Author - Kriti, Jatin, Varun, Sonia Description -
- * Controller class for Login URLs. It handles login page request and
- * facilitates user login.
- */
-
 @Controller
-public class LoginControl {
-
+public class UserControl {
 	@Autowired
 	UserService userService;
 	
-	
-
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
+	
 	/**
 	 * This method handles GET request for login page and returns the view login.jsp
 	 * with new object model Login.
@@ -88,11 +72,15 @@ public class LoginControl {
 			session.setAttribute("user_id", user.getUserId());
 			session.setAttribute("is_admin", user.isAdmin());
 			// set view welcome.jsp
-			mav = new ModelAndView("welcome");
+			
 			// set user's first name as object
 			if(user.isAdmin()) {
+				mav = new ModelAndView("welcome");
 				// set model
 				mav.addObject("user", new User());
+			}
+			else {
+				mav = new ModelAndView("redirect:/getUserAccounts");
 			}
 			mav.addObject("firstname", user.getLogin().getLoginId());
 		} else {
@@ -114,5 +102,73 @@ public class LoginControl {
 		RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
 		RequetsDispatcherObj.forward(request, response);
 	}
+	
+	/**
+	 * This method handles GET request for register page and returns the view
+	 * register.jsp with new object model User.
+	 * 
+	 * @param HttpServletRequest  This is the parameter that handles request
+	 *                            information
+	 * @param HttpServletResponse This is the parameter used to modify and send
+	 *                            appropriate response
+	 * @return ModelAndView This returns the User model inside register view
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
+		// set view name
+		ModelAndView mav = new ModelAndView("register");
+		// set model
+		mav.addObject("user", new User());
 
+		return mav;
+	}
+
+	/**
+	 * This method handles POST request to register a user and returns the view
+	 * welcome.jsp with user details.
+	 * 
+	 * @param HttpServletRequest  This is the parameter that handles request
+	 *                            information
+	 * @param HttpServletResponse This is the parameter used to modify and send
+	 *                            appropriate response
+	 * @return ModelAndView This returns the user's first name inside welcome view
+	 */
+	@RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
+	public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("user") User user) {
+		// calls register method of UserService class to create new user in the
+		// database.
+		ModelAndView mav = null;
+		int rowsInserted = userService.register(user);
+		if(rowsInserted==0) {
+			// set view as register.jsp
+			mav = new ModelAndView("register");
+			// set register error message
+			mav.addObject("message", "Unable to register! Please Try Again Later!!");
+		}
+		else {
+			// set view welcome.jsp
+			mav = new ModelAndView("welcome");
+			// set user's first name as object
+			mav.addObject("firstname", user.getFirstName());
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/viewAllUsers", method=RequestMethod.GET)
+	public ModelAndView viewAllUsers(HttpServletRequest request, HttpServletResponse response){
+		boolean isAdmin = (Boolean) request.getSession().getAttribute("is_admin");
+		ModelAndView mav = null; 
+		if(isAdmin) {
+			List<User> listOfAllUsers = userService.getAllUsers();
+			mav = new ModelAndView("users");
+			mav.addObject("users_list",listOfAllUsers);
+		}
+		else {
+			mav = new ModelAndView("index");
+		}
+		
+		return mav;
+	}
 }

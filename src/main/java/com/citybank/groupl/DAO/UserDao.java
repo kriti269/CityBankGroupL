@@ -2,12 +2,14 @@ package com.citybank.groupl.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
+import com.citybank.groupl.bean.Account;
 import com.citybank.groupl.bean.Address;
 import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
@@ -94,5 +96,16 @@ public class UserDao {
 		
 	}
 	
+	public List<User> getAllUsers(){
+		String sql = "select * from user";
+		List<User> allUsersList = null;
+		try {
+			allUsersList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class));
+		}
+		catch(Exception ex) {
+			System.out.println("Error getting users:"+ ex.getMessage());
+		}
+		return allUsersList;
+	}
 
 }

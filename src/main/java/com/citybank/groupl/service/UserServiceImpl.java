@@ -1,5 +1,7 @@
 package com.citybank.groupl.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.citybank.groupl.DAO.AddressDao;
@@ -8,6 +10,7 @@ import com.citybank.groupl.DAO.UserDao;
 import com.citybank.groupl.bean.Address;
 import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
+
 
 /**
  * @since 11-07-2021
@@ -110,6 +113,10 @@ public class UserServiceImpl implements UserService {
 	public boolean isValidLogin(Login login) {
 		// TODO Auto-generated method stub
 		return loginDao.isValidLogin(login);
+	}
+	
+	public List<User> getAllUsers(){
+		return userDao.getAllUsers();
 	}
 
 }
