@@ -67,7 +67,7 @@ public class UserDao {
 					ps.setLong(5, user.getPhoneNumber());
 					ps.setString(6, user.getGender());
 					ps.setLong(7, user.getAddress().getAddressId());
-					ps.setBoolean(8, user.isAdmin());
+					ps.setBoolean(8, user.getIsAdmin());
 				}
 			});
 		} catch (Exception e) {
@@ -79,7 +79,7 @@ public class UserDao {
 	}
 
 	public User getUserByLogin(Login login) {
-		String sql = "select *, is_admin as isAdmin from user where login_id=?";
+		String sql = "select * from user where login_id=?";
 		User user = null;
 		try {
 			// executes the query and maps the row to User model.

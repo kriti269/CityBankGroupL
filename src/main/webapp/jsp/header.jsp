@@ -4,10 +4,10 @@
   	<div class="header-right">
   	<% if(((Boolean)session.getAttribute("is_admin")) == true) { %>
   		<div class="header">
-		    <a class="active" href="<%=request.getContextPath()%>/welcome">Register User</a>
-		    <a href="<%=request.getContextPath()%>/viewAllUsers">View Users</a>
+		    <a class="${param.selected != 'View Users' ? 'active' : '' }" href="<%=request.getContextPath()%>/welcome">Register User</a>
+		    <a class="${param.selected == 'View Users' ? 'active' : '' }" href="<%=request.getContextPath()%>/viewAllUsers">View Users</a>
 		    <div id="dropdown" class="right">
-		    	Welcome ${firstname} (Administrator)
+		    	Welcome <%= session.getAttribute("login_id") %> (Administrator)
 		    	<form class="dropdown-menu" id="logOut" action="logout" method="post">
 					<button type="submit" class="btn" id="logOut" name="logOut">LogOut</button>
 				</form>
@@ -19,7 +19,7 @@
 			<a href="<%=request.getContextPath()%>/bills">Pay Bill</a>
 		    <a href="<%=request.getContextPath()%>/transactions">Transaction</a>
 		    <div id="dropdown" class="right">
-		    	Welcome ${firstname}
+		    	Welcome <%= session.getAttribute("login_id") %>
 			    <form class="dropdown-menu" id="logOut" action="logout" method="post">
 					<button type="submit" class="btn" id="logOut" name="logOut">LogOut</button>
 				</form>

@@ -47,6 +47,31 @@ public class UserControl {
 		mav.addObject("login", new Login());
 		return mav;
 	}
+	
+	/**
+	 * This method handles GET request for register page and returns the view
+	 * welcome.jsp and child jsp page register.jsp with new object model User.
+	 * 
+	 * @param HttpServletRequest  This is the parameter that handles request
+	 *                            information
+	 * @param HttpServletResponse This is the parameter used to modify and send
+	 *                            appropriate response
+	 * @return ModelAndView This returns the User model inside register view
+	 */
+	
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	public ModelAndView showWelcome(HttpServletRequest request, HttpServletResponse response) {
+		boolean isAdmin = (Boolean) request.getSession().getAttribute("is_admin");
+		ModelAndView mav = null;
+		// check user is administrator
+		if(isAdmin) {
+			mav = new ModelAndView("welcome");
+			// set model
+			mav.addObject("user", new User());
+		}
+		
+		return mav;
+	}
 
 	/**
 	 * This method handles POST request to validate user credentials and returns the
@@ -70,11 +95,12 @@ public class UserControl {
 		// check if user found
 		if (user != null) {
 			session.setAttribute("user_id", user.getUserId());
-			session.setAttribute("is_admin", user.isAdmin());
+			session.setAttribute("login_id", user.getLogin().getLoginId());
+			session.setAttribute("is_admin", user.getIsAdmin());
 			// set view welcome.jsp
 			
 			// set user's first name as object
-			if(user.isAdmin()) {
+			if(user.getIsAdmin()) {
 				mav = new ModelAndView("welcome");
 				// set model
 				mav.addObject("user", new User());
@@ -82,7 +108,6 @@ public class UserControl {
 			else {
 				mav = new ModelAndView("redirect:/getUserAccounts");
 			}
-			mav.addObject("firstname", user.getLogin().getLoginId());
 		} else {
 			// set view as login.jsp
 			mav = new ModelAndView("login");
@@ -101,26 +126,6 @@ public class UserControl {
 		// set view welcome.jsp
 		RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
 		RequetsDispatcherObj.forward(request, response);
-	}
-	
-	/**
-	 * This method handles GET request for register page and returns the view
-	 * register.jsp with new object model User.
-	 * 
-	 * @param HttpServletRequest  This is the parameter that handles request
-	 *                            information
-	 * @param HttpServletResponse This is the parameter used to modify and send
-	 *                            appropriate response
-	 * @return ModelAndView This returns the User model inside register view
-	 */
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
-		// set view name
-		ModelAndView mav = new ModelAndView("register");
-		// set model
-		mav.addObject("user", new User());
-
-		return mav;
 	}
 
 	/**
@@ -142,15 +147,15 @@ public class UserControl {
 		int rowsInserted = userService.register(user);
 		if(rowsInserted==0) {
 			// set view as register.jsp
-			mav = new ModelAndView("register");
+			mav = new ModelAndView("welcome");
 			// set register error message
 			mav.addObject("message", "Unable to register! Please Try Again Later!!");
 		}
 		else {
-			// set view welcome.jsp
-			mav = new ModelAndView("welcome");
-			// set user's first name as object
-			mav.addObject("firstname", user.getFirstName());
+			// set view users.jsp
+			List<User> listOfAllUsers = userService.getAllUsers();
+			mav = new ModelAndView("users");
+			mav.addObject("users_list",listOfAllUsers);
 		}
 		
 		return mav;
@@ -164,9 +169,6 @@ public class UserControl {
 			List<User> listOfAllUsers = userService.getAllUsers();
 			mav = new ModelAndView("users");
 			mav.addObject("users_list",listOfAllUsers);
-		}
-		else {
-			mav = new ModelAndView("index");
 		}
 		
 		return mav;
