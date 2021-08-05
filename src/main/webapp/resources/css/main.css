@@ -1,0 +1,21 @@
+body{
+	background: url(../images/background-light.jpg) center center;
+}
+
+.navbar{
+	background: #b9b9b9;
+    height: 70px;
+}
+
+.logo{
+	width: 8%;
+    margin-left: 3%;
+}
+
+.container{
+	background: whitesmoke;
+    margin: 7%;
+    padding: 5%;
+    border-radius: 10px;
+    opacity: 0.9;
+}
