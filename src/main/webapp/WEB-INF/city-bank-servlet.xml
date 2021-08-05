@@ -13,6 +13,7 @@
 
 	<!-- Provide support for component scanning -->
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<context:annotation-config />
 	<context:component-scan
 		base-package="com.citybank.groupl" />

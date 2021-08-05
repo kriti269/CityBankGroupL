@@ -12,7 +12,7 @@
 		<tr>
 			<!-- Links to login and register pages -->
 			<td><a href="<%=request.getContextPath()%>/login">Login</a></td>
-			<td><a href="<%=request.getContextPath()%>/register">Register</a></td>
+			<td><a href="<%=request.getContextPath()%>/register">Admin Login</a></td>
 		</tr>
 	</table>
 

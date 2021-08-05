@@ -54,6 +54,18 @@
 	<bean id="accountDao" class="com.citybank.groupl.DAO.AccountDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	
+	<bean id="transactionDao" class="com.citybank.groupl.DAO.TransactionDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	
+	<bean id="billDao" class="com.citybank.groupl.DAO.BillDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	
+	<bean id="billPaymentDao" class="com.citybank.groupl.DAO.BillPaymentDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 
 	<bean id="userService"
 		class="com.citybank.groupl.service.UserServiceImpl">
@@ -65,5 +77,18 @@
 	<bean id="accountService"
 		class="com.citybank.groupl.service.AccountServiceImpl">
 		<property name="accountDao" ref="accountDao"></property>
+		<property name="transactionDao" ref="transactionDao"></property>
+	</bean>
+	
+	<bean id="transactionService"
+		class="com.citybank.groupl.service.TransactionServiceImpl">
+		<property name="transactionDao" ref="transactionDao"></property>
+	</bean>
+	
+	<bean id="billService"
+		class="com.citybank.groupl.service.BillServiceImpl">
+		<property name="billDao" ref="billDao"></property>
+		<property name="billPaymentDao" ref="billPaymentDao"></property>
+		<property name="transactionDao" ref="transactionDao"></property>
 	</bean>
 </beans>
