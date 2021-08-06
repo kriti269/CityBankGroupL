@@ -1,0 +1,33 @@
+.users-bar{
+	background: #b4c3ca;
+    padding: 4%;
+    border-radius: 10px;
+}
+
+.users-head{
+	font-size: 25px;
+    font-weight: 900;
+    padding-bottom: 1%;
+}
+
+.users-table{
+	line-height: 1.9;
+}
+
+.users-container{
+	background: whitesmoke;
+    margin: 4%;
+    padding: 5%;
+    border-radius: 10px;
+    opacity: 0.9;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.users-table th{
+	padding: 2px;
+}
+
+.users-table td{
+	padding: 9px;
+}

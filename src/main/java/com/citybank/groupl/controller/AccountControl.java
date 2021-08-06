@@ -1,5 +1,6 @@
 package com.citybank.groupl.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.citybank.groupl.bean.Account;
+import com.citybank.groupl.bean.AccountType;
+import com.citybank.groupl.bean.User;
 import com.citybank.groupl.service.AccountService;
+import com.citybank.groupl.service.UserService;
 
 
 @Controller
@@ -23,10 +27,21 @@ public class AccountControl {
 	
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	UserService userService;
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+
 
 	public void setAccountService(AccountService accountService) {
 		this.accountService = accountService;
 	}
+	
+	
 	
 	@RequestMapping(value = "/getUserAccounts", method = RequestMethod.GET)
 	public ModelAndView getUserAccounts(HttpServletRequest request, HttpServletResponse response) {
@@ -41,21 +56,34 @@ public class AccountControl {
 	}
 	
 	@RequestMapping(value="/addAccount", method = RequestMethod.GET)
-	public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
-		 @RequestParam("accountTypeId") int accountId) {
-		int userId = (Integer)request.getSession().getAttribute("user_id");
-		int result = accountService.addAccount(userId, accountId);
+	public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response) {
+		List<User> allUsers = userService.getAllUsers();
+		List<User> customers = new ArrayList<User>();
+		for(User user: allUsers) {
+			if(!user.getIsAdmin()) {
+				customers.add(user);
+			}
+		}
+		List<AccountType> allAccountTypes = accountService.getAllAccountTypes();
 		ModelAndView mav = new ModelAndView("addAccount");
+		mav.addObject("all_users",customers);
+		mav.addObject("all_account_types", allAccountTypes);
 		return mav;
 	}
 	
 	@RequestMapping(value="/openAccount", method = RequestMethod.POST)
-	public ModelAndView addAccountForUser(HttpServletRequest request, HttpServletResponse response,
+	public String addAccountForUser(HttpServletRequest request, HttpServletResponse response,
 		 @RequestParam("accountTypeId") int accountId) {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
-		int result = accountService.addAccount(userId, accountId);
-		ModelAndView mav = new ModelAndView("addAccount");
-		return mav;
+		int rows = accountService.addAccount(userId, accountId);
+		String result = "";
+		if(rows==0) {
+			result = "error";
+		}
+		else {
+			result = "success";
+		}
+		return result;
 	}
 	
 	@RequestMapping(value="/deposit", method= RequestMethod.POST)

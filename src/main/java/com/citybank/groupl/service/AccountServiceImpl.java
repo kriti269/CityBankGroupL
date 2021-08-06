@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.citybank.groupl.DAO.AccountDao;
 import com.citybank.groupl.DAO.TransactionDao;
 import com.citybank.groupl.bean.Account;
+import com.citybank.groupl.bean.AccountType;
 
 @Service
 public class AccountServiceImpl implements AccountService{
@@ -69,6 +70,10 @@ public class AccountServiceImpl implements AccountService{
 		}
 		return 0;
 	
+	}
+	
+	public List<AccountType> getAllAccountTypes(){
+		return accountDao.getAllAccountTypes();
 	}
 
 }

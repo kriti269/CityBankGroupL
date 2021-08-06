@@ -1,15 +1,18 @@
 package com.citybank.groupl.DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.citybank.groupl.bean.Account;
+import com.citybank.groupl.bean.AccountType;
 import com.citybank.groupl.bean.Address;
 import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
@@ -97,15 +100,26 @@ public class UserDao {
 	}
 	
 	public List<User> getAllUsers(){
-		String sql = "select * from user";
+		String sql = "select * from user join login on user.login_id=login.login_id join address on user.address_id = address.address_id";
 		List<User> allUsersList = null;
 		try {
-			allUsersList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class));
+			allUsersList = jdbcTemplate.query(sql, new UserRowMapper());
 		}
 		catch(Exception ex) {
 			System.out.println("Error getting users:"+ ex.getMessage());
 		}
 		return allUsersList;
+	}
+	
+	public class UserRowMapper implements RowMapper<User> {
+	    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+	        User user = (new BeanPropertyRowMapper<User>(User.class)).mapRow(rs,rowNum);
+	        Address address = (new BeanPropertyRowMapper<Address>(Address.class)).mapRow(rs,rowNum);
+	        Login login = (new BeanPropertyRowMapper<Login>(Login.class)).mapRow(rs,rowNum);
+	        user.setAddress(address);
+	        user.setLogin(login);
+	        return user ;
+	    }
 	}
 
 }

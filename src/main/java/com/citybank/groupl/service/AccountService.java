@@ -3,6 +3,7 @@ package com.citybank.groupl.service;
 import java.util.List;
 
 import com.citybank.groupl.bean.Account;
+import com.citybank.groupl.bean.AccountType;
 
 
 public interface AccountService {
@@ -12,4 +13,5 @@ public interface AccountService {
 	public int depositAmount(int userId, int accountId, double amount);
 	public int withdrawAmount(int userId, int accountId, double amount);
 	public int transferFunds(int userId, int fromAccountId, int toAccountId, double amount);
+	public List<AccountType> getAllAccountTypes();
 }
