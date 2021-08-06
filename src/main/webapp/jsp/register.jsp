@@ -4,7 +4,7 @@
 <!-- User registration form -->
 <form:form id="regForm" modelAttribute="user" action="registerProcess"
 	method="post">
-	<table align="center">
+	<table align="center" class="reg-table">
 		<tr>
 			<td><form:label path="login.loginId">Username:</form:label></td>
 			<td><form:input path="login.loginId" name="loginId"
