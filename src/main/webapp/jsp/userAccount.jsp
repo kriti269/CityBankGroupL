@@ -41,6 +41,7 @@
 
 	</div>
 	<div class="modal" id="myDepositModal">
+		<form class="form-deposit" action="<%=request.getContextPath()%>/deposit" method="post">
 		<div class="modal-dialog">
 		  <div class="modal-content">
 		  
@@ -55,21 +56,25 @@
 			  <div class="modal-desc"></div>
 			  <div class="mt10">
 				  <label for="amt">Enter Amount</label>
-				  <input type="text" name="amount" class="deposit-amount" ></input>
+				  <input type="text" name="amount" class="deposit-amount"></input>
+				  <input type="hidden" name="account_id" class="deposit-acc"></input>
 				</div>
+				<div class="text-danger deposit-error" style="display:none;">Unable to deposit! Enter valid amount!</div>
 			</div>
 			
 			<!-- Modal footer -->
 			<div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			  <button type="button" id="deposit-btn" class="btn btn-primary" data-dismiss="modal">Deposit</button>
+			  <button type="button" id="deposit-btn" class="btn btn-primary">Deposit</button>
 			</div>
 			
 		  </div>
 		</div>
+		</form>
 	</div>
 	
 	<div class="modal" id="myWithdrawModal">
+		<form class="form-withdraw" action="<%=request.getContextPath()%>/withdraw" method="post">
 		<div class="modal-dialog">
 		  <div class="modal-content">
 		  
@@ -85,17 +90,20 @@
 			  <div class="mt10">
 				  <label for="amt">Enter Amount</label>
 				  <input type="text" name="amount" class="withdraw-amount"></input>
+				  <input type="hidden" name="account_id" class="withdraw-acc"></input>
 				</div>
+				<div class="text-danger withdraw-error" style="display:none;">Unable to withdraw! Check Balance!</div>
 			</div>
 			
 			<!-- Modal footer -->
 			<div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			  <button type="button" id="withdraw-btn" class="btn btn-primary" data-dismiss="modal">Withdraw</button>
+			  <button type="button" id="withdraw-btn" class="btn btn-primary">Withdraw</button>
 			</div>
 			
 		  </div>
 		</div>
+		</form>
 	</div>
 </body>
 </html>

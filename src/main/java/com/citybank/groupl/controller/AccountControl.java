@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -57,6 +58,7 @@ public class AccountControl {
 		List<Account> accounts = accountService.getAllUserAccounts(userId);
 		// set view name
 		ModelAndView mav = new ModelAndView("userAccount");
+
 		
 		// set model
 		mav.addObject("accounts", accounts);
@@ -96,30 +98,31 @@ public class AccountControl {
 	
 	@RequestMapping(value="/deposit", method= RequestMethod.POST)
 	public ModelAndView depositAmount(HttpServletRequest request, HttpServletResponse response,
-		 @RequestBody Map<String, String> depositDetails) {
+		 @RequestParam Map<String, String> depositDetails) {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
 		int depositAccount = Integer.parseInt(depositDetails.get("account_id"));
 		double depositAmount = Double.parseDouble(depositDetails.get("amount"));
 		int updated = accountService.depositAmount(userId, depositAccount, depositAmount);
 		ModelAndView mav = null;
+
 		if(updated==1) {
 			mav = new ModelAndView("redirect:/getUserAccounts");
-			mav.addObject("success-deposit","Amount deposited successfully!");
+			
 		}
 		else {
 			mav = new ModelAndView("redirect:/getUserAccounts");
-			mav.addObject("error-deposit","Unable to complete deposit request!");
+			
 		}
 		return mav;
 	}
 	
 	@RequestMapping(value="/withdraw", method= RequestMethod.POST)
 	public ModelAndView withdrawAmount(HttpServletRequest request, HttpServletResponse response,
-		 @RequestBody Map<String, String> withdrawDetails) {
+		 @RequestParam Map<String, String> withdrawDetails) {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
-		int depositAccount = Integer.parseInt(withdrawDetails.get("account_id"));
-		double depositAmount = Double.parseDouble(withdrawDetails.get("amount"));
-		int updated = accountService.withdrawAmount(userId, depositAccount, depositAmount);
+		int withdrawAccount = Integer.parseInt(withdrawDetails.get("account_id"));
+		double withdrawAmount = Double.parseDouble(withdrawDetails.get("amount"));
+		int updated = accountService.withdrawAmount(userId, withdrawAccount, withdrawAmount);
 		ModelAndView mav = null;
 		if(updated==1) {
 			mav = new ModelAndView("redirect:/getUserAccounts");
