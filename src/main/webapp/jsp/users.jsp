@@ -9,18 +9,18 @@
 <meta charset="ISO-8859-1">
 <title>View All Users</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
-<link href="resources/css/userAccount.css" rel="stylesheet" type="text/css">
+<link href="resources/css/users.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 	<jsp:include page="header.jsp">
 		<jsp:param name="selected" value="View Users" />
 	</jsp:include>
-	<div class="container">
-		<div class="account-bar">
-			<div class="account-head">${account.accountType.typeName}</div>
-			<div class="account-body">
-				<table align="center">
+	<div class="users-container">
+		<div class="users-bar">
+			<div class="users-head"></div>
+			<div class="users-body">
+				<table align="center" class="users-table">
 					<tr>
 						<th>
 							Login Id
@@ -32,19 +32,16 @@
 							User Type
 						</th>
 						<th>
-							First Name
+							Name
 						</th>
 						<th>
-							Last Name
-						</th>
-						<th>
-							Phone Number
+							Phone
 						</th>
 						<th>
 							Gender
 						</th>
 						<th>
-							Address Line 1
+							Address
 						</th>
 						<th>
 							City 
@@ -73,11 +70,9 @@
 								</c:if>
 							</td>
 							<td>
-								${user.firstName}
+								${user.firstName} ${user.lastName}
 							</td>
-							<td>
-								${user.lastName}
-							</td>
+							
 							<td>
 								${user.phoneNumber}
 							</td>
