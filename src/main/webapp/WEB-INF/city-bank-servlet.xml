@@ -32,7 +32,7 @@
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/banking_system" />
 		<property name="username" value="root" />
-		<property name="password" value="student" />
+		<property name="password" value="lambton" />
 	</bean>
 
 

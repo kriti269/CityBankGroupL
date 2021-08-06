@@ -63,6 +63,7 @@ label{
 }  
 
 .btn{  
+	cursor: pointer;
     width: 320px;
     height: 40px;
     border: none;

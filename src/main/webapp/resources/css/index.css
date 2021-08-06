@@ -59,6 +59,7 @@
 }
 
 .welcome a {
+	cursor: pointer;
 	text-decoration: none;
 	width: 200px;
 	color: white;

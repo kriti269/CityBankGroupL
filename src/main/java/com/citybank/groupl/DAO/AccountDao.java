@@ -52,14 +52,20 @@ public class AccountDao {
 	public int addAccount(final int userId, final int accountId) {
 		String sql = "insert into account(user_id,account_type_id) values(?,?) ";
 		try {
-			int result = jdbcTemplate.update(sql, new PreparedStatementSetter() {
-				
-				public void setValues(PreparedStatement ps) throws SQLException {
-					ps.setInt(1, userId);
-					ps.setInt(2, accountId);
+			int result = 0;
+			//checking that if account already exists
+			Account account = getUserAccount(userId, accountId);
+			if(account == null) {
+				result = jdbcTemplate.update(sql, new PreparedStatementSetter() {
 					
-				}
-			});
+					public void setValues(PreparedStatement ps) throws SQLException {
+						ps.setInt(1, userId);
+						ps.setInt(2, accountId);
+						
+					}
+				
+				});
+			}
 			return result;
 		}
 		catch (Exception e) {
