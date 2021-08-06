@@ -27,13 +27,15 @@
 				<div class="account-head">${account.accountType.typeName}</div>
 				<div class="account-body">
 					CBS0000${account.accountId}
-					${account.balance}
+					$${account.balance}
 				</div>
 				<input type="hidden" value="${account.accountId}" id="selectedAccountId">
 				<input type="hidden" value="${account.balance}" id="selectedBalance">
 				<div class="account-action">
 					<a data-toggle="modal" data-target="#myDepositModal" class="deposit-modal-btn">Deposit</a>
+					<c:if test="${account.accountType.typeName != 'Fixed Deposit'}">
 					<a data-toggle="modal" data-target="#myWithdrawModal" class="withdraw-modal-btn">Withdraw</a>
+					</c:if>
 				</div>
 				
 			</div>
