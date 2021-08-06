@@ -5,7 +5,7 @@
 
 .container {
     width: 25%;
-    background-color: gray;
+    background-color: lightblue;
     padding: 70px;
     margin: auto;
     margin-top: 100px;
@@ -16,7 +16,7 @@ body
 {  
     margin: 0;  
     padding: 0;  
-    background-color:#6abadeba;  
+    background: url(../images/background.jpg);
     font-family: 'Arial';  
 } 
  
@@ -28,7 +28,7 @@ body
         padding: 60px;  
         background: #23463f;  
         border-radius: 15px ;  
-          
+        
 }  
 
 h2{  
@@ -40,7 +40,7 @@ h2{
 label{ 
 	margin-bottom: 25px;
     display: block;
-    color: #08ffd1;  
+    color: darkcyan;
     font-size: 17px;  
 } 
  
@@ -63,12 +63,14 @@ label{
 }  
 
 .btn{  
-    width: 320px;  
-    height: 30px;  
-    border: none;  
-    border-radius: 17px;  
-    padding-left: 7px;  
-    color: blue;
+    width: 320px;
+    height: 40px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: white;
+    background: gray;
+    font-size: 17px;
 }
   
 span{  

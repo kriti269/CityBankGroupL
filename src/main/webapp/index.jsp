@@ -13,7 +13,7 @@
 		<div class="bg"></div>
 		<!-- Links to login and register pages -->
 		<div class="main">
-			<img class="user" src="resources/images/user.png">
+			<img class="user" src="resources/images/logo.JPG">
 			<h1 class="heading">Welcome to City Bank</h1>
 			<div class="welcome">
 				<a href="<%=request.getContextPath()%>/login">Login</a>

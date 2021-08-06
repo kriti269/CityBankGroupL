@@ -1,0 +1,35 @@
+@charset "ISO-8859-1";
+
+.reg-container{
+	margin-top: 5% !important;
+    background: lightgrey;
+    width: 50%;
+    margin: auto;
+    padding: 5%;
+    border-radius: 10px;
+    opacity: 0.9;
+}
+
+.reg-table{
+	line-height: 2.9;
+}
+
+.reg-table input{
+	padding: 6px;
+    border-radius: 4px;
+    
+}
+
+.reg-table input[type=text], .reg-table input[type=password]{
+	width: 200px;
+}
+
+#register{
+	padding: 4%;
+    border-radius: 6px;
+    width: 60%;
+    background: darkcyan;
+    color: white;
+    font-size: 18px;
+    margin-top: 15%;
+}
