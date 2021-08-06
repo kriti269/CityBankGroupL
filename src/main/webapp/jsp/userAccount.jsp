@@ -13,7 +13,9 @@
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-	<jsp:directive.include file = "header.jsp" />
+	<jsp:include page="header.jsp">
+		<jsp:param name="selected" value="Account" />
+	</jsp:include>
 	<div class="container">
 			<c:forEach items="${accounts}" var="account" varStatus="tagStatus">
 			<div class="account-bar">
