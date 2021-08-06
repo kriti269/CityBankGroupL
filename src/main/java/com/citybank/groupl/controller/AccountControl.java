@@ -1,18 +1,25 @@
 package com.citybank.groupl.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.citybank.groupl.bean.Account;
@@ -20,6 +27,7 @@ import com.citybank.groupl.bean.AccountType;
 import com.citybank.groupl.bean.User;
 import com.citybank.groupl.service.AccountService;
 import com.citybank.groupl.service.UserService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 
 @Controller
@@ -71,19 +79,19 @@ public class AccountControl {
 		return mav;
 	}
 	
-	@RequestMapping(value="/openAccount", method = RequestMethod.POST)
-	public String addAccountForUser(HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value="/openAccount", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String addAccountForUser(HttpServletRequest request, HttpServletResponse response,
 		 @RequestBody Map<String, String> accountDetails) {
 		int rows = accountService.addAccount(Integer.parseInt(accountDetails.get("user_id")),
 				Integer.parseInt(accountDetails.get("account_type_id")));
-		String result;
+		Map<String,String> result = new HashMap<String, String>();
 		if(rows==0) {
-			result = "{ \"result\": \"error\" }";
+			result.put("response", "error");
 		}
 		else {
-			result = "{ \"result\": \"success\" }";
+			result.put("response", "success");
 		}
-		return result;
+		return new JSONObject(result).toString();
 	}
 	
 	@RequestMapping(value="/deposit", method= RequestMethod.POST)

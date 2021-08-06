@@ -1,6 +1,6 @@
 <div class="navbar">
 <!--  <div class="header"> -->
-	<img class="logo" src="resources/images/logo.JPG">
+	<img class="logo" src="<%=request.getContextPath()%>/resources/images/logo.JPG">
   	<div class="header-right">
   	<% if(((Boolean)session.getAttribute("is_admin")) == true) { %>
   		<div class="header">

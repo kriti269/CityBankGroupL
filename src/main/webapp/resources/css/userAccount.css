@@ -1,17 +1,37 @@
 @charset "ISO-8859-1";
 
+
+
+.btn {
+	cursor: pointer;
+}
+
+
 .account-bar{
 	background: #b4c3ca;
     padding: 4%;
     border-radius: 10px;
 }
 
-.btn {
-	cursor: pointer;
-}
-
 .account-head{
 	font-size: 25px;
     font-weight: 900;
     padding-bottom: 1%;
+}
+
+.account-body{
+	display: inline-block;
+}
+
+.account-action{
+	float: right;
+}
+
+.account-action a{
+	border: 1px solid gray;
+    color: white;
+    background: dodgerblue;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: auto;
 }
