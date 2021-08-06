@@ -14,12 +14,12 @@
 </head>
 <body>
 	<jsp:include page="header.jsp">
-		<jsp:param name="selected" value="View Users" />
+		<jsp:param name="selected" value="Transaction" />
 	</jsp:include>
 	<div class="container">
-		<div class="account-bar">
-			<div class="account-head">Transactions</div>
-			<div class="account-body">
+		<div class="tx-bar">
+			<div class="tx-head">Transactions</div>
+			<div class="tx-body">
 				<table align="center">
 					<tr>
 						<th>
@@ -35,66 +35,31 @@
 							Account Id
 						</th>
 						<th>
-							Last Name
+							Account Type
 						</th>
 						<th>
-							Phone Number
-						</th>
-						<th>
-							Gender
-						</th>
-						<th>
-							Address Line 1
-						</th>
-						<th>
-							City 
-						</th>
-						<th>
-							State 
-						</th>
-						<th>
-							Zip Code 
+							Amount
 						</th>
 					</tr>
-					<c:forEach items="${users_list}" var="user" varStatus="tagStatus">
+					<c:forEach items="${listOfTransactions}" var="transaction" varStatus="tagStatus">
 						<tr>
 							<td>
-								${user.login.loginId}
+								${transaction.transactionId}
 							</td>
 							<td>
-								${user.email}
+								${transaction.txDateTime}
 							</td>
 							<td>
-								<c:if test="${user.isAdmin == 'true'}">
-									Administrator
-								</c:if>
-								<c:if test="${user.isAdmin == 'false'}">
-									Customer
-								</c:if>
+								${transaction.txType}
 							</td>
 							<td>
-								${user.firstName}
+								CBS0000${transaction.account.accountId}
 							</td>
 							<td>
-								${user.lastName}
+								${transaction.account.accountType.typeName}
 							</td>
 							<td>
-								${user.phoneNumber}
-							</td>
-							<td>
-								${user.gender}
-							</td>
-							<td>
-								${user.address.line1}
-							</td>
-							<td>
-								${user.address.city}
-							</td>
-							<td>
-								${user.address.state}
-							</td>
-							<td>
-								${user.address.zip}
+								$${transaction.amount}
 							</td>
 						</tr>
 					</c:forEach>

@@ -21,9 +21,9 @@ public class TransactionControl {
 	public TransactionService transactionService;
 	
 	@RequestMapping(value="/viewAllTransactions", method= RequestMethod.GET)
-	public ModelAndView transferFunds(HttpServletRequest request, HttpServletResponse response,
-		 @RequestParam int accountId) {
-		List<Transaction> listOfTransactions = transactionService.viewAllTransactions(accountId);
+	public ModelAndView transferFunds(HttpServletRequest request, HttpServletResponse response) {
+		int userId = (Integer) request.getSession().getAttribute("user_id");
+		List<Transaction> listOfTransactions = transactionService.viewAllTransactions(userId);
 		ModelAndView mav = new ModelAndView("transactionDetails");
 		mav.addObject("listOfTransactions", listOfTransactions);
 		return mav;

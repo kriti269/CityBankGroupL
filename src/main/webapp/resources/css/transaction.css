@@ -1,13 +1,22 @@
 @charset "ISO-8859-1";
 
-.account-bar{
+.tx-bar{
 	background: #b4c3ca;
     padding: 4%;
     border-radius: 10px;
 }
 
-.account-head{
+.tx-head{
 	font-size: 25px;
     font-weight: 900;
     padding-bottom: 1%;
+}
+
+.tx-body table{
+	width: 100%;
+    line-height: 1.9;
+}
+
+.tx-body table th{
+	text-align: left;
 }

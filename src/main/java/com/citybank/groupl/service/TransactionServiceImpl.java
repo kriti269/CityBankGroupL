@@ -20,8 +20,8 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 
-	public List<Transaction> viewAllTransactions(int accountId) {
-		return transactionDao.viewAllTransactions(accountId);
+	public List<Transaction> viewAllTransactions(int userId) {
+		return transactionDao.viewAllTransactions(userId);
 	}
 
 }
