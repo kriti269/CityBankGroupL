@@ -20,6 +20,10 @@
     
 }
 
+.btn {
+	cursor: pointer;
+}
+
 .reg-table input[type=text], .reg-table input[type=password]{
 	width: 200px;
 }

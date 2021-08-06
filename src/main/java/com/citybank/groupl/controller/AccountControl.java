@@ -73,15 +73,15 @@ public class AccountControl {
 	
 	@RequestMapping(value="/openAccount", method = RequestMethod.POST)
 	public String addAccountForUser(HttpServletRequest request, HttpServletResponse response,
-		 @RequestParam("accountTypeId") int accountId) {
-		int userId = (Integer) request.getSession().getAttribute("user_id");
-		int rows = accountService.addAccount(userId, accountId);
-		String result = "";
+		 @RequestBody Map<String, String> accountDetails) {
+		int rows = accountService.addAccount(Integer.parseInt(accountDetails.get("user_id")),
+				Integer.parseInt(accountDetails.get("account_type_id")));
+		String result;
 		if(rows==0) {
-			result = "error";
+			result = "{ \"result\": \"error\" }";
 		}
 		else {
-			result = "success";
+			result = "{ \"result\": \"success\" }";
 		}
 		return result;
 	}

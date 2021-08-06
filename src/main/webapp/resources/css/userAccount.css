@@ -6,6 +6,10 @@
     border-radius: 10px;
 }
 
+.btn {
+	cursor: pointer;
+}
+
 .account-head{
 	font-size: 25px;
     font-weight: 900;

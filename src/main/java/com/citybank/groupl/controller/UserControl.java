@@ -152,10 +152,7 @@ public class UserControl {
 			mav.addObject("message", "Unable to register! Please Try Again Later!!");
 		}
 		else {
-			// set view users.jsp
-			List<User> listOfAllUsers = userService.getAllUsers();
-			mav = new ModelAndView("addAccount");
-			mav.addObject("users_list",listOfAllUsers);
+			mav = new ModelAndView("redirect:/addAccount");
 		}
 		
 		return mav;

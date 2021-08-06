@@ -68,7 +68,7 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td><form:button id="register" name="register">Register</form:button></td>
+			<td><form:button class="btn" id="register" name="register">Register</form:button></td>
 		</tr>
 	</table>
 </form:form>
