@@ -28,7 +28,7 @@ $(document).on('click',"#addAccount", function() {
             contentType: 'application/json',
 			data: JSON.stringify(accountData),
 			success : function(result) {
-				if (result.statusText == "success") {
+				if (result.response == "success") {
 					$('#success').show();
 					$('#success').text("User account added successfully.");
 					setTimeout(function() {
