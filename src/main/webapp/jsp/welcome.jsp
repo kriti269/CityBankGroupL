@@ -11,7 +11,9 @@
 	<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-	<jsp:directive.include file = "header.jsp" />
+	<jsp:include page="header.jsp">
+		<jsp:param name="selected" value="Register User" />
+	</jsp:include>
 	<div style="padding-left:20px; margin-top: 50px;" class="reg-container">
 		<jsp:directive.include file = "register.jsp" />
 	</div>

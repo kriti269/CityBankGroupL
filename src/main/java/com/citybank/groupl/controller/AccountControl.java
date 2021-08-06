@@ -40,13 +40,21 @@ public class AccountControl {
 		return mav;
 	}
 	
+	@RequestMapping(value="/addAccount", method = RequestMethod.GET)
+	public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
+		 @RequestParam("accountTypeId") int accountId) {
+		int userId = (Integer)request.getSession().getAttribute("user_id");
+		int result = accountService.addAccount(userId, accountId);
+		ModelAndView mav = new ModelAndView("addAccount");
+		return mav;
+	}
+	
 	@RequestMapping(value="/openAccount", method = RequestMethod.POST)
 	public ModelAndView addAccountForUser(HttpServletRequest request, HttpServletResponse response,
 		 @RequestParam("accountTypeId") int accountId) {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
 		int result = accountService.addAccount(userId, accountId);
-		ModelAndView mav = new ModelAndView("login");
-			
+		ModelAndView mav = new ModelAndView("addAccount");
 		return mav;
 	}
 	

@@ -154,7 +154,7 @@ public class UserControl {
 		else {
 			// set view users.jsp
 			List<User> listOfAllUsers = userService.getAllUsers();
-			mav = new ModelAndView("users");
+			mav = new ModelAndView("addAccount");
 			mav.addObject("users_list",listOfAllUsers);
 		}
 		
