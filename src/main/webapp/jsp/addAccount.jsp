@@ -11,7 +11,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="resources/js/addAccount.js"></script>
-<link href="resources/css/userAccount.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 
 </head>
