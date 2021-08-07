@@ -2,7 +2,7 @@ package com.citybank.groupl.bean;
 
 public class Bill {
 	private int billId;
-	private Account userAccount;
+	private Account account;
 	private String merchantName;
 	private String merchantAccount;
 	public int getBillId() {
@@ -11,11 +11,11 @@ public class Bill {
 	public void setBillId(int billId) {
 		this.billId = billId;
 	}
-	public Account getUserAccount() {
-		return userAccount;
+	public Account getAccount() {
+		return account;
 	}
-	public void setUserAccount(Account userAccount) {
-		this.userAccount = userAccount;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 	public String getMerchantName() {
 		return merchantName;

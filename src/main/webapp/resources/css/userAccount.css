@@ -53,3 +53,11 @@
 	color: white !important;
 	cursor: pointer;
 }
+
+#myTransferModal label{
+	width: 25%;
+}
+
+.accounts-dropdown{
+	width: 40%;
+}

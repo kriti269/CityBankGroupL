@@ -65,7 +65,7 @@
 				  <input type="text" name="amount" class="deposit-amount"></input>
 				  <input type="hidden" name="account_id" class="deposit-acc"></input>
 				</div>
-				<div class="text-danger deposit-error" style="display:none;">Unable to deposit! Enter valid amount!</div>
+				<div class="text-danger deposit-error" style="display:none;">Invalid deposit amount!</div>
 			</div>
 			
 			<!-- Modal footer -->
@@ -98,7 +98,7 @@
 				  <input type="text" name="amount" class="withdraw-amount"></input>
 				  <input type="hidden" name="account_id" class="withdraw-acc"></input>
 				</div>
-				<div class="text-danger withdraw-error" style="display:none;">Unable to withdraw! Check Balance!</div>
+				<div class="text-danger withdraw-error" style="display:none;">Invalid withdraw amount!</div>
 			</div>
 			
 			<!-- Modal footer -->
@@ -134,7 +134,7 @@
 				  </select>
 				  <input type="hidden" name="fromAccount" class="transfer-from-account"></input>
 				</div>
-				<div class="text-danger transfer-error" style="display:none;">Unable to transfer! Check Balance!</div>
+				<div class="text-danger transfer-error" style="display:none;">Invalid transfer amount!</div>
 			</div>
 			
 			<!-- Modal footer -->
