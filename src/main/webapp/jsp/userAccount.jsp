@@ -27,13 +27,19 @@
 				<div class="account-head">${account.accountType.typeName}</div>
 				<div class="account-body">
 					CBS0000${account.accountId}
-					${account.balance}
+					$${account.balance}
 				</div>
+				<div class="account-hidden">
 				<input type="hidden" value="${account.accountId}" id="selectedAccountId">
 				<input type="hidden" value="${account.balance}" id="selectedBalance">
+				<input type="hidden" value="${account.accountType.typeName}" id="selectedAccType">
+				</div>
 				<div class="account-action">
 					<a data-toggle="modal" data-target="#myDepositModal" class="deposit-modal-btn">Deposit</a>
+					<c:if test="${account.accountType.typeName != 'Fixed Deposit'}">
 					<a data-toggle="modal" data-target="#myWithdrawModal" class="withdraw-modal-btn">Withdraw</a>
+					<a data-toggle="modal" data-target="#myTransferModal" class="transfer-modal-btn">Transfer</a>
+					</c:if>
 				</div>
 				
 			</div>
@@ -47,7 +53,7 @@
 		  
 			<!-- Modal Header -->
 			<div class="modal-header">
-			  <h4 class="modal-title"></h4>
+			  <h4 class="modal-title">Deposit</h4>
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			
@@ -59,7 +65,7 @@
 				  <input type="text" name="amount" class="deposit-amount"></input>
 				  <input type="hidden" name="account_id" class="deposit-acc"></input>
 				</div>
-				<div class="text-danger deposit-error" style="display:none;">Unable to deposit! Enter valid amount!</div>
+				<div class="text-danger deposit-error" style="display:none;">Invalid deposit amount!</div>
 			</div>
 			
 			<!-- Modal footer -->
@@ -80,7 +86,7 @@
 		  
 			<!-- Modal Header -->
 			<div class="modal-header">
-			  <h4 class="modal-title"></h4>
+			  <h4 class="modal-title">Withdraw</h4>
 			  <button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			
@@ -92,13 +98,49 @@
 				  <input type="text" name="amount" class="withdraw-amount"></input>
 				  <input type="hidden" name="account_id" class="withdraw-acc"></input>
 				</div>
-				<div class="text-danger withdraw-error" style="display:none;">Unable to withdraw! Check Balance!</div>
+				<div class="text-danger withdraw-error" style="display:none;">Invalid withdraw amount!</div>
 			</div>
 			
 			<!-- Modal footer -->
 			<div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			  <button type="button" id="withdraw-btn" class="btn btn-primary">Withdraw</button>
+			</div>
+			
+		  </div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="modal" id="myTransferModal">
+		<form class="form-transfer" action="<%=request.getContextPath()%>/transferFunds" method="post">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+		  
+			<!-- Modal Header -->
+			<div class="modal-header">
+			  <h4 class="modal-title">Transfer</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			
+			<!-- Modal body -->
+			<div class="modal-body">
+			  <div class="modal-desc"></div>
+			  <div class="mt10">
+				  <label for="amount">Enter Amount: </label>
+				  <input type="text" name="amount" class="transfer-amount"></input><br>
+				  <label for="toAccount">To Account:	</label>
+				  <select name="toAccount" class="accounts-dropdown">
+				  </select>
+				  <input type="hidden" name="fromAccount" class="transfer-from-account"></input>
+				</div>
+				<div class="text-danger transfer-error" style="display:none;">Invalid transfer amount!</div>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  <button type="button" id="transfer-btn" class="btn btn-primary">Transfer</button>
 			</div>
 			
 		  </div>

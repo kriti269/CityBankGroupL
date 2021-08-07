@@ -1,11 +1,14 @@
 package com.citybank.groupl.service;
 
 import com.citybank.groupl.DAO.AccountDao;
+import java.util.List;
+
 import com.citybank.groupl.DAO.BillDao;
 import com.citybank.groupl.DAO.BillPaymentDao;
 import com.citybank.groupl.DAO.TransactionDao;
 import com.citybank.groupl.bean.Account;
 import com.citybank.groupl.bean.Bill;
+import com.citybank.groupl.bean.BillPayment;
 
 public class BillServiceImpl implements BillService{
 	
@@ -49,14 +52,14 @@ public class BillServiceImpl implements BillService{
 
 	public String[] addBill(Bill bill, String amountVal, int userId) {
 		String accountVal = "";
-		if(bill.getUserAccount() != null) {
-			accountVal = String.valueOf(bill.getUserAccount().getAccountId());
+		if(bill.getAccount() != null) {
+			accountVal = String.valueOf(bill.getAccount().getAccountId());
 		}
 		String[] response = checkValidBillPayment(amountVal, accountVal, userId);
 		if(response[0].equals("false")) {
 			return response;
 		}
-		int accountId = bill.getUserAccount().getAccountId();
+		int accountId = bill.getAccount().getAccountId();
 		double amount = Double.parseDouble(amountVal);
 		bill = billDao.addBill(bill);
 		accountDao.withdrawAmount(userId, accountId, amount);
@@ -103,5 +106,9 @@ public class BillServiceImpl implements BillService{
 		}
 		
 		return response;
+	}
+
+	public List<BillPayment> getBillPayments(int user_id) {
+		return billPaymentDao.getBillPayments(user_id);
 	}
 }

@@ -9,57 +9,57 @@
 <meta charset="ISO-8859-1">
 <title>View All Transactions</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
-<link href="resources/css/transaction.css" rel="stylesheet" type="text/css">
+<link href="resources/css/billpayments.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 	<jsp:include page="header.jsp">
-		<jsp:param name="selected" value="Transaction" />
+		<jsp:param name="selected" value="View Bills" />
 	</jsp:include>
 	<div class="container">
-		<div class="tx-bar">
-			<div class="tx-head">Transactions</div>
-			<div class="tx-body">
+		<div class="pb-bar">
+			<div class="pb-head">View Bills</div>
+			<div class="pb-body">
 				<table align="center">
 					<tr>
 						<th>
-							Transaction Id
+							Bill Id
 						</th>
 						<th>
 							Transaction Date
 						</th>
 						<th>
-							Transaction Type
+							Amount
 						</th>
 						<th>
-							Account Id
+							Merchant Account
+						</th>
+						<th>
+							Merchant Name
 						</th>
 						<th>
 							Account Type
 						</th>
-						<th>
-							Amount
-						</th>
 					</tr>
-					<c:forEach items="${listOfTransactions}" var="transaction" varStatus="tagStatus">
+					<c:forEach items="${listOfBillPayments}" var="billpayment" varStatus="tagStatus">
 						<tr>
 							<td>
-								${transaction.transactionId}
+								${billpayment.bill.billId}
 							</td>
 							<td>
-								${transaction.txDateTime}
+								${billpayment.transaction.txDateTime}
 							</td>
 							<td>
-								${transaction.txType}
+								${billpayment.transaction.amount}
 							</td>
 							<td>
-								CBS0000${transaction.account.accountId}
+								${billpayment.bill.merchantAccount}
 							</td>
 							<td>
-								${transaction.account.accountType.typeName}
+								${billpayment.bill.merchantName}
 							</td>
 							<td>
-								$${transaction.amount}
+								${billpayment.bill.account.accountType.typeName}
 							</td>
 						</tr>
 					</c:forEach>

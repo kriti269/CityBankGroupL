@@ -81,7 +81,7 @@ public class BillControl {
 		Account account = new Account();
 		if(!accountIdVal.equals("")) {
 			account.setAccountId(Integer.parseInt(accountIdVal));
-			bill.setUserAccount(account);
+			bill.setAccount(account);
 		}
 		bill.setMerchantName(billDetails.get("merchantName"));
 		bill.setMerchantAccount(billDetails.get("merchantAccNo"));

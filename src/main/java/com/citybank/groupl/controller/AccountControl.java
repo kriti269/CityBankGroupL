@@ -28,7 +28,6 @@ import com.citybank.groupl.bean.AccountType;
 import com.citybank.groupl.bean.User;
 import com.citybank.groupl.service.AccountService;
 import com.citybank.groupl.service.UserService;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 
 @Controller
@@ -103,15 +102,8 @@ public class AccountControl {
 		double depositAmount = Double.parseDouble(depositDetails.get("amount"));
 		int updated = accountService.depositAmount(userId, depositAccount, depositAmount);
 		ModelAndView mav = null;
-
-		if(updated==1) {
-			mav = new ModelAndView("redirect:/getUserAccounts");
-			
-		}
-		else {
-			mav = new ModelAndView("redirect:/getUserAccounts");
-			
-		}
+		mav = new ModelAndView("redirect:/getUserAccounts");
+		mav = new ModelAndView("redirect:/getUserAccounts");
 		return mav;
 	}
 	
@@ -123,34 +115,20 @@ public class AccountControl {
 		double withdrawAmount = Double.parseDouble(withdrawDetails.get("amount"));
 		int updated = accountService.withdrawAmount(userId, withdrawAccount, withdrawAmount);
 		ModelAndView mav = null;
-		if(updated==1) {
-			mav = new ModelAndView("redirect:/getUserAccounts");
-			mav.addObject("success-deposit","Amount withdrawn successfully!");
-		}
-		else {
-			mav = new ModelAndView("redirect:/getUserAccounts");
-			mav.addObject("error-deposit","Unable to complete withdrawal request!");
-		}
+		mav = new ModelAndView("redirect:/getUserAccounts");
 		return mav;
 	}
 	
 	@RequestMapping(value="/transferFunds", method= RequestMethod.POST)
 	public ModelAndView transferFunds(HttpServletRequest request, HttpServletResponse response,
-		 @RequestBody Map<String, String> transferDetails) {
+		 @RequestParam Map<String, String> transferDetails) {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
 		int fromAccount = Integer.parseInt(transferDetails.get("fromAccount"));
 		int toAccount = Integer.parseInt(transferDetails.get("toAccount"));
 		double depositAmount = Double.parseDouble(transferDetails.get("amount"));
 		int updated = accountService.transferFunds(userId,fromAccount, toAccount, depositAmount);
 		ModelAndView mav = null;
-		if(updated==1) {
-			mav = new ModelAndView("redirect:/getUserAccounts");
-			mav.addObject("success-deposit","Amount withdrawn successfully!");
-		}
-		else {
-			mav = new ModelAndView("redirect:/getUserAccounts");
-			mav.addObject("error-deposit","Unable to complete withdrawal request!");
-		}
+		mav = new ModelAndView("redirect:/getUserAccounts");
 		return mav;
 	}
 
