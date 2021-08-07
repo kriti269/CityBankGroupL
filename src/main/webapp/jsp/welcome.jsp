@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Welcome</title>
+	<title>Register User</title>
 	<link href="resources/css/main.css" rel="stylesheet" type="text/css">
 	<link href="resources/css/register.css" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
