@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.citybank.groupl.DAO.AccountDao;
+import com.citybank.groupl.DAO.AccountTypeDao;
 import com.citybank.groupl.DAO.TransactionDao;
 import com.citybank.groupl.bean.Account;
 import com.citybank.groupl.bean.AccountType;
@@ -14,6 +15,17 @@ public class AccountServiceImpl implements AccountService{
 	
 	AccountDao accountDao;
 	TransactionDao transactionDao;
+	AccountTypeDao accountTypeDao;
+	
+	
+
+	public AccountTypeDao getAccountTypeDao() {
+		return accountTypeDao;
+	}
+
+	public void setAccountTypeDao(AccountTypeDao accountTypeDao) {
+		this.accountTypeDao = accountTypeDao;
+	}
 
 	public TransactionDao getTransactionDao() {
 		return transactionDao;
@@ -110,7 +122,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 	
 	public List<AccountType> getAllAccountTypes(){
-		return accountDao.getAllAccountTypes();
+		return accountTypeDao.getAllAccountTypes();
 	}
 	
 	private String[] checkValidWithdrawal(double amount_val, int account_id_val) {

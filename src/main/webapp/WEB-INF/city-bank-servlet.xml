@@ -62,6 +62,10 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	
+	<bean id="accountTypeDao" class="com.citybank.groupl.DAO.AccountTypeDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	
 	<bean id="transactionDao" class="com.citybank.groupl.DAO.TransactionDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
@@ -85,6 +89,7 @@
 		class="com.citybank.groupl.service.AccountServiceImpl">
 		<property name="accountDao" ref="accountDao"></property>
 		<property name="transactionDao" ref="transactionDao"></property>
+		<property name="accountTypeDao" ref="accountTypeDao"></property>
 	</bean>
 	
 	<bean id="transactionService"
