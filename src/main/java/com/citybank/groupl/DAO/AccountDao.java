@@ -27,16 +27,15 @@ public class AccountDao {
 	}
 	
 	public List<Account> getAllUserAccounts(final int userId) {
-		String sql = "select * from account a join account_type at on a.account_type_id = at.account_type_id where a.user_id=?";
+		String sql = "select * from account a join account_type at on "
+			+ "a.account_type_id = at.account_type_id where a.user_id=? order by at.type_name";
 		List<Account> listOfAccounts = null;
 		try {
 			// executes the query and maps the row to User model.
 			listOfAccounts = jdbcTemplate.query(sql, new PreparedStatementSetter() {
 				
 				public void setValues(PreparedStatement ps) throws SQLException {
-					// TODO Auto-generated method stub
 					ps.setInt(1, userId);
-					
 				}
 			}, new AccountRowMapper());
 			return listOfAccounts;
@@ -69,7 +68,8 @@ public class AccountDao {
 			return result;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			// prints any exception occurred
+			System.out.println("Error occurred while adding user account. " + e.getMessage());
 		}
 		return 0;
 	}
@@ -96,7 +96,7 @@ public class AccountDao {
 			return account;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			// prints any exception occurred
 			System.out.println("Error occurred while getting user account. " + e.getMessage());
 		}
 		return account;
@@ -113,7 +113,7 @@ public class AccountDao {
 			return account;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			// prints any exception occurred
 			System.out.println("Error occurred while getting user account. " + e.getMessage());
 		}
 		return account;
@@ -127,6 +127,7 @@ public class AccountDao {
 					new int[] { java.sql.Types.DOUBLE, java.sql.Types.INTEGER, java.sql.Types.INTEGER });
 		}
 		catch(Exception ex) {
+			// prints any exception occurred
 			System.out.println("Error occurred while depositing to account. " + ex.getMessage());
 		}
 		return result;
@@ -140,6 +141,7 @@ public class AccountDao {
 					new int[] { java.sql.Types.DOUBLE, java.sql.Types.INTEGER, java.sql.Types.INTEGER });
 		}
 		catch(Exception ex) {
+			// prints any exception occurred
 			System.out.println("Error occurred while withdrawing to account. " + ex.getMessage());
 		}
 		return result;
@@ -152,6 +154,7 @@ public class AccountDao {
 			accountTypes = jdbcTemplate.query(sql, new BeanPropertyRowMapper<AccountType>(AccountType.class));
 		}
 		catch(Exception ex) {
+			// prints any exception occurred
 			System.out.println("Unable to get all account types: " + ex.getMessage());
 		}
 		return accountTypes;

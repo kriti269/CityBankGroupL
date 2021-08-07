@@ -10,7 +10,7 @@
 		    <div id="dropdown" class="right">
 		    	Welcome <%= session.getAttribute("login_id") %> (Administrator)
 		    	<form class="dropdown-menu" id="logOut" action="logout" method="post">
-					<button type="submit" class="btn" id="logOut" name="logOut">LogOut</button>
+					<button type="submit" class="btn logout-btn" id="logOut" name="logOut">LogOut</button>
 				</form>
 		    </div>
 	    </div>
@@ -23,7 +23,7 @@
 		    <div id="dropdown" class="right">
 		    	Welcome <%= session.getAttribute("login_id") %>
 			    <form class="dropdown-menu" id="logOut" action="logout" method="post">
-					<button type="submit" class="btn" id="logOut" name="logOut">LogOut</button>
+					<button type="submit" class="btn logout-btn" id="logOut" name="logOut">LogOut</button>
 				</form>
 			</div>
 	    </div>

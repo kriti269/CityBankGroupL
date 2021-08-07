@@ -1,6 +1,5 @@
 $(document).ready(function(){
     var selectedAccount = null;
-	var selectedAcBalance = null;
 	
 	var listOfAccounts = $(".account-hidden");
 	
@@ -8,7 +7,6 @@ $(document).ready(function(){
 	
     $('.deposit-modal-btn, .withdraw-modal-btn, .transfer-modal-btn').click(function(){
 		selectedAccount  = $(this).closest('.account-bar').find('#selectedAccountId').val();
-		selectedAcBalance  = $(this).closest('.account-bar').find('#selectedBalance').val();
 		if($(this).hasClass("transfer-modal-btn")){
 			var optionsHtml = "";
 			for(var account=0; account<listOfAccounts.length; account++){
@@ -23,7 +21,7 @@ $(document).ready(function(){
 
 	$('#withdraw-btn').click(function(){
             var amt = $(".withdraw-amount").val();
-			if(!isNaN(amt)&&(parseFloat(selectedAcBalance)-parseFloat(amt))>=100 && parseFloat(amt)>0){
+			if(!isNaN(amt) && parseFloat(amt)>0){
 				$(".withdraw-amount").val(amt);
 				$(".withdraw-acc").val(selectedAccount);
 				$(".form-withdraw").submit();
@@ -37,6 +35,10 @@ $(document).ready(function(){
 
     });
 
+	setTimeout(function(){ 
+		$(".alert-error").hide();
+		$(".alert-success").hide();
+	}, 10000);
 
 	$('#myDepositModal, #myWithdrawModal').on('hidden.bs.modal', function () {
 		 $(".deposit-amount").val("");
@@ -61,7 +63,7 @@ $(document).ready(function(){
 
 	$('#transfer-btn').click(function(){
             var amt = $(".transfer-amount").val();
-			if(!isNaN(amt)&&(parseFloat(selectedAcBalance)-parseFloat(amt))>=100 && parseFloat(amt)>0){
+			if(!isNaN(amt) && parseFloat(amt)>0){
 				$(".transfer-amount").val(amt);
 				$(".transfer-from-account").val(selectedAccount);
 				$(".form-transfer").submit();

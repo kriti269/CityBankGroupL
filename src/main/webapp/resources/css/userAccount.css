@@ -2,8 +2,29 @@
 
 
 
-.btn {
+.logout-btn {
 	cursor: pointer;
+    margin-top: 10px;
+    width: 150px;
+    padding: 5px;
+    background-color: #77775d !important;
+    color: white !important;
+    font-size: 15px;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;	
 	border-radius: 5px;
 }
 
@@ -61,4 +82,37 @@
 
 .accounts-dropdown{
 	width: 40%;
+}
+
+.alert-error {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	padding: 20px;
+	background-color: #f44336;
+	color: white;
+}
+
+.alert-success {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	padding: 20px;
+	background-color: green;
+	color: white;
+}
+
+.clsbtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.clsbtn:hover {
+  color: black;
 }
