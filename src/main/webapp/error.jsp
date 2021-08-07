@@ -14,9 +14,9 @@
 		<!-- Links to login and register pages -->
 		<div class="main">
 			<img class="user" src="resources/images/logo.JPG">
-			<h1 class="heading">Welcome to City Bank</h1>
+			<h1 class="heading">Something went wrong!</h1>
 			<div class="welcome">
-				<a href="<%=request.getContextPath()%>/login">Login</a>
+				<a href="javascript:history.back()">Go Back</a>
 			</div>
 		</div>
 	</div>
