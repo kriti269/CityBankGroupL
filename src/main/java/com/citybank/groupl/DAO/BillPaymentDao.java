@@ -44,7 +44,7 @@ public class BillPaymentDao {
 				+ "transaction t on t.transaction_id=bp.transaction_id join account "
 				+ "a on a.account_id=t.account_id join account_type at on a.account_type_id=at.account_type_id"
 				+ " where b.account_id in(select account_id "
-				+ "from account where user_id=?)";
+				+ "from account where user_id=?) order by t.tx_date_time desc";
 		List<BillPayment> billPaymentsList = null;
 		try {
 			billPaymentsList = jdbcTemplate.query(sql, new Object[] {user_id},

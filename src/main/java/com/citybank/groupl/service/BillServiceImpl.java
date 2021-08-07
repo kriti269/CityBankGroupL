@@ -62,7 +62,12 @@ public class BillServiceImpl implements BillService{
 		int accountId = bill.getAccount().getAccountId();
 		double amount = Double.parseDouble(amountVal);
 		bill = billDao.addBill(bill);
-		accountDao.withdrawAmount(userId, accountId, amount);
+		int result = accountDao.withdrawAmount(userId, accountId, amount);
+		if(result == 0) {
+			response[0] = "false";
+			response[1] = "Unable to pay bill. Error occurred.";
+			return response;
+		}
 		int id = 0;
 		id = transactionDao.saveTransaction(accountId, amount, "Debit");
 		payBill(bill.getBillId(), id);
@@ -74,6 +79,10 @@ public class BillServiceImpl implements BillService{
 		return billPaymentDao.payBill(billId, transactionId);
 	}
 
+	public List<BillPayment> getBillPayments(int user_id) {
+		return billPaymentDao.getBillPayments(user_id);
+	}
+	
 	private String[] checkValidBillPayment(String amountVal, String accountIdVal, int userId) {
 		String[] response = new String[2];
 		response[0] = "true";
@@ -89,11 +98,7 @@ public class BillServiceImpl implements BillService{
 		  double amount_val = Double.parseDouble(amountVal);
 		  int account_id_val = Integer.parseInt(accountIdVal);
 		  if(amount_val > 0 && account_id_val != 0) {
-			  Account userAccount = accountDao.getAccount(account_id_val);
-			  if(userAccount.getBalance() < amount_val) {
-				  response[0] = "false";
-				  response[1] = "Unable to pay bill. Check Balance!";
-			  }
+			  response = checkValidWithdrawal(amount_val, account_id_val);
 		  } else {
 			  response[0] = "false";
 			  response[1] = "Unable to pay bill. Invalid amount value.";
@@ -107,8 +112,16 @@ public class BillServiceImpl implements BillService{
 		
 		return response;
 	}
-
-	public List<BillPayment> getBillPayments(int user_id) {
-		return billPaymentDao.getBillPayments(user_id);
+	
+	private String[] checkValidWithdrawal(double amount_val, int account_id_val) {
+		String[] response = new String[2];
+		Account userAccount = accountDao.getAccount(account_id_val);
+		  if(userAccount.getBalance() < amount_val) {
+			  response[0] = "false";
+			  response[1] = "Unable to pay bill. Check Balance!";
+		  } else {
+			  response[0] = "true";
+		  }
+		  return response;
 	}
 }

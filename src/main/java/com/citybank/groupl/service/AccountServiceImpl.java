@@ -49,31 +49,80 @@ public class AccountServiceImpl implements AccountService{
 		return 0;
 	}
 
-	public int depositAmount(int userId, int accountId, double amount) {
-		// TODO Auto-generated method stub
-		transactionDao.saveTransaction(accountId, amount, "Credit");
-		return accountDao.depositAmount(userId,accountId,amount);
+	public String[] depositAmount(int userId, int accountId, double amount) {
+		int result = accountDao.depositAmount(userId,accountId,amount);
+		String[] response = new String[2];
+		if(result != 0) {
+			transactionDao.saveTransaction(accountId, amount, "Credit");
+			response[0] = "true";
+			response[1] = "Amount successfully deposited.";
+		} else {
+			response[0] = "false";
+			response[1] = "Unable to deposit amount.";
+		}
+		return response;
 	}
 	
-	public int withdrawAmount(int userId, int accountId, double amount) {
-		// TODO Auto-generated method stub
-		transactionDao.saveTransaction(accountId, amount, "Debit");
-		return accountDao.withdrawAmount(userId,accountId,amount);
+	public String[] withdrawAmount(int userId, int accountId, double amount) {
+		String[] response = new String[2];
+		response = checkValidWithdrawal(amount, accountId);
+		if(response[0].equals("false")) {
+			return response;
+		}
+		int result = accountDao.withdrawAmount(userId,accountId,amount);
+		if(result != 0) {
+			transactionDao.saveTransaction(accountId, amount, "Debit");
+			response[0] = "true";
+			response[1] = "Amount successfully withdrawn.";
+		} else {
+			response[0] = "false";
+			response[1] = "Unable to withdraw amount.";
+		}
+		return response;
 	}
 
-	public int transferFunds(int userId, int fromAccountId, int toAccountId, double amount) {
-		// TODO Auto-generated method stub
-		transactionDao.saveTransaction(fromAccountId, amount, "Debit");
-		if(accountDao.withdrawAmount(userId, fromAccountId, amount)==1){
-			transactionDao.saveTransaction(toAccountId, amount, "Credit");
-			return accountDao.depositAmount(userId, toAccountId, amount);
+	public String[] transferFunds(int userId, int fromAccountId, int toAccountId, double amount) {
+		String[] response = new String[2];
+		response = checkValidWithdrawal(amount, fromAccountId);
+		if(response[0].equals("false")) {
+			return response;
 		}
-		return 0;
+		int result = accountDao.withdrawAmount(userId, fromAccountId, amount);
+		
+		if(result != 0) {
+			transactionDao.saveTransaction(toAccountId, amount, "Credit");
+			result = accountDao.depositAmount(userId, toAccountId, amount);
+			if(result != 0) {
+				transactionDao.saveTransaction(fromAccountId, amount, "Debit");
+				response[0] = "true";
+				response[1] = "Amount successfully transferred.";
+			} else {
+				response[0] = "false";
+				response[1] = "Unable to transfer funds.";
+			}
+			
+		} else {
+			response[0] = "false";
+			response[1] = "Unable to transfer funds.";
+		}
+		return response;
 	
 	}
 	
 	public List<AccountType> getAllAccountTypes(){
 		return accountDao.getAllAccountTypes();
+	}
+	
+	private String[] checkValidWithdrawal(double amount_val, int account_id_val) {
+		String[] response = new String[2];
+		Account userAccount = accountDao.getAccount(account_id_val);
+		  if(userAccount.getBalance() < amount_val) {
+			  response[0] = "false";
+			  response[1] = "Unable to withdraw amount. Check Balance!";
+		  } else {
+			  response[0] = "true";
+		  }
+		  return response;
 	}
 
 }

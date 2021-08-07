@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONObject;
@@ -57,7 +58,13 @@ public class AccountControl {
 		List<Account> accounts = accountService.getAllUserAccounts(userId);
 		// set view name
 		ModelAndView mav = new ModelAndView("userAccount");
-		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("alertMessage") != null) {
+			mav.addObject("alertMessage", session.getAttribute("alertMessage"));
+			session.removeAttribute("alertMessage");
+			mav.addObject("alertMessageType", session.getAttribute("alertMessageType"));
+			session.removeAttribute("alertMessageType");
+		}
 		// set model
 		mav.addObject("accounts", accounts);
 		return mav;
@@ -100,10 +107,17 @@ public class AccountControl {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
 		int depositAccount = Integer.parseInt(depositDetails.get("account_id"));
 		double depositAmount = Double.parseDouble(depositDetails.get("amount"));
-		int updated = accountService.depositAmount(userId, depositAccount, depositAmount);
+		String[] resp = accountService.depositAmount(userId, depositAccount, depositAmount);
 		ModelAndView mav = null;
 		mav = new ModelAndView("redirect:/getUserAccounts");
-		mav = new ModelAndView("redirect:/getUserAccounts");
+		HttpSession session = request.getSession();
+		if(resp[0].equals("false")) {
+			session.setAttribute("alertMessageType", "error");
+		} else {
+			session.setAttribute("alertMessageType", "success");
+		}
+		
+		session.setAttribute("alertMessage", resp[1]);
 		return mav;
 	}
 	
@@ -113,9 +127,17 @@ public class AccountControl {
 		int userId = (Integer) request.getSession().getAttribute("user_id");
 		int withdrawAccount = Integer.parseInt(withdrawDetails.get("account_id"));
 		double withdrawAmount = Double.parseDouble(withdrawDetails.get("amount"));
-		int updated = accountService.withdrawAmount(userId, withdrawAccount, withdrawAmount);
+		String[] resp = accountService.withdrawAmount(userId, withdrawAccount, withdrawAmount);
 		ModelAndView mav = null;
 		mav = new ModelAndView("redirect:/getUserAccounts");
+		HttpSession session = request.getSession();
+		if(resp[0].equals("false")) {
+			session.setAttribute("alertMessageType", "error");
+		} else {
+			session.setAttribute("alertMessageType", "success");
+		}
+		
+		session.setAttribute("alertMessage", resp[1]);
 		return mav;
 	}
 	
@@ -126,9 +148,17 @@ public class AccountControl {
 		int fromAccount = Integer.parseInt(transferDetails.get("fromAccount"));
 		int toAccount = Integer.parseInt(transferDetails.get("toAccount"));
 		double depositAmount = Double.parseDouble(transferDetails.get("amount"));
-		int updated = accountService.transferFunds(userId,fromAccount, toAccount, depositAmount);
+		String[] resp = accountService.transferFunds(userId,fromAccount, toAccount, depositAmount);
 		ModelAndView mav = null;
 		mav = new ModelAndView("redirect:/getUserAccounts");
+		HttpSession session = request.getSession();
+		if(resp[0].equals("false")) {
+			session.setAttribute("alertMessageType", "error");
+		} else {
+			session.setAttribute("alertMessageType", "success");
+		}
+		
+		session.setAttribute("alertMessage", resp[1]);
 		return mav;
 	}
 

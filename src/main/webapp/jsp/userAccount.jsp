@@ -12,9 +12,9 @@
 <link href="resources/css/userAccount.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<script src="resources/js/bootstrap.bundle.min.js"></script>
 <script src="resources/js/account.js"></script>
 </head>
 <body>
@@ -111,7 +111,12 @@
 		</div>
 		</form>
 	</div>
-	
+	<c:if test="${alertMessage ne null}">
+		<div ${alertMessageType.equals('success') ? 'class="alert-success"' : 'class="alert-error"'}>
+		<span class="clsbtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		 	<label id="alert-message">${alertMessage}</label>
+		</div>
+	</c:if>
 	<div class="modal" id="myTransferModal">
 		<form class="form-transfer" action="<%=request.getContextPath()%>/transferFunds" method="post">
 		<div class="modal-dialog">
