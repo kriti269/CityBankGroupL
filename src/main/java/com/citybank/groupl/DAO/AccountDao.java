@@ -147,18 +147,7 @@ public class AccountDao {
 		return result;
 	}
 	
-	public List<AccountType> getAllAccountTypes(){
-		String sql = "select * from account_type";
-		List<AccountType> accountTypes = null;
-		try {
-			accountTypes = jdbcTemplate.query(sql, new BeanPropertyRowMapper<AccountType>(AccountType.class));
-		}
-		catch(Exception ex) {
-			// prints any exception occurred
-			System.out.println("Unable to get all account types: " + ex.getMessage());
-		}
-		return accountTypes;
-	}
+	
 
 }
 
