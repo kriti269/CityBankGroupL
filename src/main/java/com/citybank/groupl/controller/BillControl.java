@@ -35,7 +35,7 @@ public class BillControl {
 		Bill bill = new Bill();
 		Account account = new Account();
 		account.setAccountId(Integer.parseInt(billDetails.get("user_account")));
-		bill.setUserAccount(account);
+		bill.setAccount(account);
 		bill.setMerchantName(billDetails.get("merchant_name"));
 		bill.setMerchantAccount(billDetails.get("merchant_account"));
 		double amount = Double.parseDouble(billDetails.get("amount"));

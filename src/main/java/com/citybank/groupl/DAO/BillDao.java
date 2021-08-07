@@ -26,11 +26,11 @@ public class BillDao {
 	}
 	
 	public Bill addBill(Bill bill) {
-		String sql = "insert into bill(user_account, merchant_name, merchant_account)"
+		String sql = "insert into bill(account_id, merchant_name, merchant_account)"
 				+ " values(?,?,?)";
 		
 		try {
-			List listParams = Arrays.asList(new SqlParameter(Types.INTEGER, "user_account"),
+			List listParams = Arrays.asList(new SqlParameter(Types.INTEGER, "account_id"),
 					new SqlParameter(Types.VARCHAR, "merchant_name"), 
 					new SqlParameter(Types.VARCHAR, "merchant_account"));
 
@@ -41,7 +41,7 @@ public class BillDao {
 				}
 			};
 
-			List billParams = Arrays.asList(bill.getUserAccount(), bill.getMerchantName(), bill.getMerchantAccount());
+			List billParams = Arrays.asList(bill.getAccount().getAccountId(), bill.getMerchantName(), bill.getMerchantAccount());
 			PreparedStatementCreator psc = pscf.newPreparedStatementCreator(billParams);
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			jdbcTemplate.update(psc, keyHolder);
