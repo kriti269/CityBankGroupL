@@ -30,23 +30,8 @@ $(document).on('click',"#addAccount", function() {
 			success : function(result) {
 				if (result.response == "success") {
 					$('#success').show();
-					$('#success').text("User account added successfully.");
-					setTimeout(function() {
-						$('#success').hide();
-					}, 5000);
-				} else {
-					$('#error').show();
-					$("#error").text("User with same account Type already exists.");
-					setTimeout(function() {
-						if ($('#error').length > 0) {
-							$('#error').hide();
-						}
-					}, 3000);
-				}
-			},
-			error : function(result) {
-				if (result.statusText == "success") {
-					$('#success').show();
+					$('#user').val("");
+					$('#accountType').val("");
 					$('#success').text("User account added successfully.");
 					setTimeout(function() {
 						$('#success').hide();

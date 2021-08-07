@@ -102,6 +102,23 @@ public class AccountDao {
 		return account;
 	}
 	
+	public Account getAccount(final int accountId) {
+		String sql = "Select * from account where account_id=?";
+		Account account = null;
+		try {
+			account = jdbcTemplate.queryForObject(sql,new Object[] { accountId  },
+					new int[] { java.sql.Types.INTEGER },
+					new BeanPropertyRowMapper<Account>(Account.class));
+					
+			return account;
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error occurred while getting user account. " + e.getMessage());
+		}
+		return account;
+	}
+	
 	public int depositAmount(int userId, int accountId, double amount) {
 		String sql = "Update account set balance=balance+? where user_id=? and account_id=?";
 		int result = 0;

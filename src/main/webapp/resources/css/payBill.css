@@ -20,9 +20,13 @@
     
 }
 
-.error {
+.error, .error-fixed {
 	color: red;
 	font-style: italic;	
+}
+
+.accountSelect {
+	height: 35px;
 }
 
 .success {

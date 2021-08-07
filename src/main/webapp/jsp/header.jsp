@@ -17,7 +17,7 @@
 	<% } else { %>
 		<div class="header">
 			<a class="${param.selected == 'Account' ? 'active' : '' }" href="<%=request.getContextPath()%>/getUserAccounts">Account</a>
-			<a class="${param.selected == 'Pay Bill' ? 'active' : '' }" href="<%=request.getContextPath()%>/bills">Pay Bill</a>
+			<a class="${param.selected == 'Pay Bill' ? 'active' : '' }" href="<%=request.getContextPath()%>/paybills">Pay Bill</a>
 		    <a class="${param.selected == 'Transaction' ? 'active' : '' }" href="<%=request.getContextPath()%>/viewAllTransactions">Transaction</a>
 		    <div id="dropdown" class="right">
 		    	Welcome <%= session.getAttribute("login_id") %>

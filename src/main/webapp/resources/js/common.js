@@ -1,7 +1,10 @@
 $(document).ready(function() {
     setTimeout(function(){
 	    if ($('.error').length > 0) {
-	    $('.error').remove();
+	    	$('.error').remove();
+	    }
+		if ($('.success').length > 0) {	
+			$('.success').remove();
 	    }
 	    var search = window.location.search;
 	    if(search) {

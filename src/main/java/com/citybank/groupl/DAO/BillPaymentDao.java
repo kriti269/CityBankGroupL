@@ -15,7 +15,7 @@ public class BillPaymentDao {
 	}
 	
 	public int payBill(int billId, int transactionId) {
-		String sql = "insert into bill_payment(bill_id, transaction_id) into values(?,?)";
+		String sql = "insert into bill_payment(bill_id, transaction_id) values(?,?)";
 		int result = 0;
 		try {
 			result = jdbcTemplate.update(sql, new Object[] {billId, transactionId},

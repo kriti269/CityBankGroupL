@@ -41,7 +41,7 @@ public class BillDao {
 				}
 			};
 
-			List billParams = Arrays.asList(bill.getUserAccount(), bill.getMerchantName(), bill.getMerchantAccount());
+			List billParams = Arrays.asList(bill.getUserAccount().getAccountId(), bill.getMerchantName(), bill.getMerchantAccount());
 			PreparedStatementCreator psc = pscf.newPreparedStatementCreator(billParams);
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			jdbcTemplate.update(psc, keyHolder);
