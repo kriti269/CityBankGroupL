@@ -76,7 +76,7 @@
 							<td>
 								${user.phoneNumber}
 							</td>
-							<td>
+							<td class="caps">
 								${user.gender}
 							</td>
 							<td>

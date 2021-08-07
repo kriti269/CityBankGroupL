@@ -57,7 +57,6 @@ public class AccountControl {
 		List<Account> accounts = accountService.getAllUserAccounts(userId);
 		// set view name
 		ModelAndView mav = new ModelAndView("userAccount");
-
 		
 		// set model
 		mav.addObject("accounts", accounts);

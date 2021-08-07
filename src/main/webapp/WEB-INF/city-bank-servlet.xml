@@ -92,5 +92,6 @@
 		<property name="billDao" ref="billDao"></property>
 		<property name="billPaymentDao" ref="billPaymentDao"></property>
 		<property name="transactionDao" ref="transactionDao"></property>
+		<property name="accountDao" ref="accountDao"></property>
 	</bean>
 </beans>
