@@ -49,7 +49,7 @@
     text-decoration: auto;
 }
 
-.deposit-modal-btn, .withdraw-modal-btn{
+.deposit-modal-btn, .withdraw-modal-btn, .transfer-modal-btn{
 	color: white !important;
 	cursor: pointer;
 }

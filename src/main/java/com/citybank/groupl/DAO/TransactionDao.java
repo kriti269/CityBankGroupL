@@ -49,7 +49,7 @@ public class TransactionDao {
 					setGeneratedKeysColumnNames("transaction_id");
 				}
 			};
-			System.out.println(new Timestamp(System.currentTimeMillis()));
+			
 			List txParams = Arrays.asList(accountId,txType, amount);
 			PreparedStatementCreator psc = pscf.newPreparedStatementCreator(txParams);
 			KeyHolder keyHolder = new GeneratedKeyHolder();
