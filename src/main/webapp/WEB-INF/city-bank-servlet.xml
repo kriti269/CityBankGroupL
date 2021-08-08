@@ -13,12 +13,16 @@
 
 	<!-- Provide support for component scanning -->
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+	<!-- resources folder mapping -->
+	<mvc:resources mapping="/resources/**"
+		location="/resources/" />
+
+	<!-- auth interceptor for pre handling the request to validate session -->
 	<mvc:interceptors>
-    	<bean id="authInterceptor" class="com.citybank.groupl.interceptor.AuthTokenInterceptor"/>
+		<bean id="authInterceptor"
+			class="com.citybank.groupl.interceptor.AuthTokenInterceptor" />
 	</mvc:interceptors>
-	
+
 	<context:annotation-config />
 	<context:component-scan
 		base-package="com.citybank.groupl" />
@@ -61,20 +65,23 @@
 	<bean id="accountDao" class="com.citybank.groupl.DAO.AccountDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	
-	<bean id="accountTypeDao" class="com.citybank.groupl.DAO.AccountTypeDao">
+
+	<bean id="accountTypeDao"
+		class="com.citybank.groupl.DAO.AccountTypeDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	
-	<bean id="transactionDao" class="com.citybank.groupl.DAO.TransactionDao">
+
+	<bean id="transactionDao"
+		class="com.citybank.groupl.DAO.TransactionDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	
+
 	<bean id="billDao" class="com.citybank.groupl.DAO.BillDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	
-	<bean id="billPaymentDao" class="com.citybank.groupl.DAO.BillPaymentDao">
+
+	<bean id="billPaymentDao"
+		class="com.citybank.groupl.DAO.BillPaymentDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 
@@ -91,12 +98,12 @@
 		<property name="transactionDao" ref="transactionDao"></property>
 		<property name="accountTypeDao" ref="accountTypeDao"></property>
 	</bean>
-	
+
 	<bean id="transactionService"
 		class="com.citybank.groupl.service.TransactionServiceImpl">
 		<property name="transactionDao" ref="transactionDao"></property>
 	</bean>
-	
+
 	<bean id="billService"
 		class="com.citybank.groupl.service.BillServiceImpl">
 		<property name="billDao" ref="billDao"></property>

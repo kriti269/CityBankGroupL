@@ -9,6 +9,7 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- Generic application error handling -->
 	<error-page>
 	    <location>/error.jsp</location>
 	</error-page>

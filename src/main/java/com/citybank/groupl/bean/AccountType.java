@@ -1,5 +1,19 @@
 package com.citybank.groupl.bean;
 
+/**
+ * @since 2021-08-07
+ * @author Jatin, Kriti, Varun, Sonia
+ * @serial 1.0
+ * @summary It stores the account types available and maps to the account_type
+ *          table in the database.
+ */
+
+/*
+ * Date - 07-Aug-2021 Author - Jatin, Kriti, Varun, Sonia Description - It
+ * stores the account types available and maps to the account_type table in the
+ * database.
+ */
+
 public class AccountType {
 	private int accountTypeId;
 
