@@ -7,18 +7,19 @@ import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
 
 /**
- * @since 11-07-2021
- * @author Group L - Kriti, Jatin, Varun, Sonia
+ * @since 2021-08-07
+ * @author Jatin, Kriti, Varun, Sonia
  * @serial 1.0
- * @summary Interface that declares two methods to register a user and validate
- *          user login.
- * 
+ * @summary This is an Interface that declares methods to register a user, check
+ *          a valid user login, save address of user, validate that user and
+ *          process login and get all the list of users.
  */
 
 /*
- * Date - 11-07-2021 Author - Kriti, Jatin, Varun, Sonia Description - Interface
- * that declares two methods to register a user and validate user login.
- * 
+ * Date - 07-Aug-2021 Author - Jatin, Kriti, Varun, Sonia Description - This is
+ * an Interface that declares methods to register a user, check a valid user
+ * login, save address of user, validate that user and process login and get all
+ * the list of users.
  */
 
 public interface UserService {
