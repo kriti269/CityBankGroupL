@@ -12,8 +12,20 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.citybank.groupl.bean.Account;
 import com.citybank.groupl.bean.AccountType;
-import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
+
+/**
+ * @since 2021-08-07
+ * @author Jatin, Kriti, Varun, Sonia
+ * @serial 1.0
+ * @summary All database operations related to account table are performed in
+ *          Account Dao.
+ */
+
+/*
+ * Date - 07-Aug-2021 Author - Jatin, Kriti, Varun, Sonia Description - All
+ * database operations related to account table are performed in Account Dao.
+ */
 
 public class AccountDao {
 	
@@ -26,6 +38,8 @@ public class AccountDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	//gets list of all accounts related to a customer 
+	//from account table and order them by account types
 	public List<Account> getAllUserAccounts(final int userId) {
 		String sql = "select * from account a join account_type at on "
 			+ "a.account_type_id = at.account_type_id where a.user_id=? order by at.type_name";
@@ -48,6 +62,9 @@ public class AccountDao {
 		
 	}
 	
+	//Add account inserts a new account into the account
+	//table for given user and account type. Returns 
+	//the number of rows updated
 	public int addAccount(final int userId, final int accountTypeId) {
 		String sql = "insert into account(user_id,account_type_id) values(?,?) ";
 		try {
@@ -74,17 +91,23 @@ public class AccountDao {
 		return 0;
 	}
 	
+	//Account Row mapper iImplements mapRow function of 
+	//RowMapper to map Account rows with User and AccountType 
+	//nested objects
 	public class AccountRowMapper implements RowMapper<Account> {
 	    public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
 	        Account account = (new BeanPropertyRowMapper<Account>(Account.class)).mapRow(rs,rowNum);
 	        User user = (new BeanPropertyRowMapper<User>(User.class)).mapRow(rs,rowNum);
 	        AccountType accountType = (new BeanPropertyRowMapper<AccountType>(AccountType.class)).mapRow(rs,rowNum);
+	        //set user for an account
 	        account.setUser(user);
+	        //set account type for an account
 	        account.setAccountType(accountType);
 	        return account ;
 	    }
 	}
 	
+	//Get account details based on user id and account type id
 	public Account getUserAccount(final int userId, final int accountTypeId) {
 		String sql = "Select * from account where user_id=? and account_type_id= ?";
 		Account account = null;
@@ -102,6 +125,7 @@ public class AccountDao {
 		return account;
 	}
 	
+	//Get account based on account id
 	public Account getAccount(final int accountId) {
 		String sql = "Select * from account where account_id=?";
 		Account account = null;
@@ -119,6 +143,7 @@ public class AccountDao {
 		return account;
 	}
 	
+	//Update account row with added balance
 	public int depositAmount(int userId, int accountId, double amount) {
 		String sql = "Update account set balance=balance+? where user_id=? and account_id=?";
 		int result = 0;
@@ -133,6 +158,7 @@ public class AccountDao {
 		return result;
 	}
 	
+	//Update account row with deducted balance
 	public int withdrawAmount(int userId, int accountId, double amount) {
 		String sql = "Update account set balance=balance-? where user_id=? and account_id=?";
 		int result = 0;

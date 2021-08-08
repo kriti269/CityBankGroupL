@@ -10,9 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-
-import com.citybank.groupl.bean.Account;
-import com.citybank.groupl.bean.AccountType;
 import com.citybank.groupl.bean.Address;
 import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
@@ -31,25 +28,22 @@ import com.citybank.groupl.bean.User;
  * for User model. It creates a new user in the database and validates user
  * credentials including user name and password from database.
  */
+
 @Component
 public class UserDao {
 	JdbcTemplate jdbcTemplate;
 
+	// setter for jdbc template
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	// getter for jdbc template
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
 
-	/**
-	 * This method takes a User model object and inserts a corresponding row in the
-	 * database table.
-	 * 
-	 * @param User This is the parameter that represents User model.
-	 * @return int This returns the number of rows affected.
-	 */
+	// Inserts a new user into user table and returns the number of row updated
 	public int register(final User user) {
 		// create SQL query and initialize result to 0
 		String sql = "insert into user(login_id, first_name, last_name, email,"
@@ -58,11 +52,10 @@ public class UserDao {
 		try {
 			// insert the row by using PreparedStatementSetter object to set model
 			// attributes inside SQL query
-			
 			result = jdbcTemplate.update(sql, new PreparedStatementSetter() {
 
 				public void setValues(PreparedStatement ps) throws SQLException {
-					
+
 					ps.setString(1, user.getLogin().getLoginId());
 					ps.setString(2, user.getFirstName());
 					ps.setString(3, user.getLastName());
@@ -81,14 +74,15 @@ public class UserDao {
 		return result;
 	}
 
+	// Gets a row from user table based on login id
+	// and returns the User object
 	public User getUserByLogin(Login login) {
 		String sql = "select * from user where login_id=?";
 		User user = null;
 		try {
 			// executes the query and maps the row to User model.
 			user = jdbcTemplate.queryForObject(sql, new Object[] { login.getLoginId() },
-					new int[] { java.sql.Types.VARCHAR },
-					new BeanPropertyRowMapper<User>(User.class));
+					new int[] { java.sql.Types.VARCHAR }, new BeanPropertyRowMapper<User>(User.class));
 			user.setLogin(login);
 			return user;
 		} catch (Exception e) {
@@ -96,30 +90,32 @@ public class UserDao {
 			System.out.println("Error occurred while logging in. " + e.getMessage());
 		}
 		return user;
-		
+
 	}
-	
-	public List<User> getAllUsers(){
+
+	// Returns the list of all users present in the database
+	public List<User> getAllUsers() {
 		String sql = "select * from user join login on user.login_id=login.login_id join address on user.address_id = address.address_id";
 		List<User> allUsersList = null;
 		try {
 			allUsersList = jdbcTemplate.query(sql, new UserRowMapper());
-		}
-		catch(Exception ex) {
-			System.out.println("Error getting users:"+ ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println("Error getting users:" + ex.getMessage());
 		}
 		return allUsersList;
 	}
-	
+
+	// Implements mapRow function of RowMapper and returns User
+	// object after setting nested Address and Login objects
 	public class UserRowMapper implements RowMapper<User> {
-	    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-	        User user = (new BeanPropertyRowMapper<User>(User.class)).mapRow(rs,rowNum);
-	        Address address = (new BeanPropertyRowMapper<Address>(Address.class)).mapRow(rs,rowNum);
-	        Login login = (new BeanPropertyRowMapper<Login>(Login.class)).mapRow(rs,rowNum);
-	        user.setAddress(address);
-	        user.setLogin(login);
-	        return user ;
-	    }
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			User user = (new BeanPropertyRowMapper<User>(User.class)).mapRow(rs, rowNum);
+			Address address = (new BeanPropertyRowMapper<Address>(Address.class)).mapRow(rs, rowNum);
+			Login login = (new BeanPropertyRowMapper<Login>(Login.class)).mapRow(rs, rowNum);
+			user.setAddress(address);
+			user.setLogin(login);
+			return user;
+		}
 	}
 
 }
