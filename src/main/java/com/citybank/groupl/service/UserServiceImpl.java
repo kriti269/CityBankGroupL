@@ -11,111 +11,111 @@ import com.citybank.groupl.bean.Address;
 import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
 
-
 /**
- * @since 11-07-2021
- * @author Group L - Kriti, Jatin, Varun, Sonia
+ * @since 2021-08-07
+ * @author Jatin, Kriti, Varun, Sonia
  * @serial 1.0
- * @summary Service class that implements UserService methods. It makes use of
- *          UserDao class to register a user and validate user login.
- * 
+ * @summary This is an class that implements user service. It has userDao,
+ *          address dao and login dao references. It also contains getters and
+ *          setter for the same.It contains methods for registering a new user,
+ *          a valid user login, save address of user, validate that user and
+ *          process login and get all the list of users.
  */
 
 /*
- * Date - 11-07-2021 Author - Kriti, Jatin, Varun, Sonia Description - Service
- * class that implements UserService methods. It makes use of UserDao class to
- * register a user and validate user login.
- * 
+ * Date - 07-Aug-2021 Author - Jatin, Kriti, Varun, Sonia Description - This is
+ * an class that implements user service. It has userDao, address dao and login
+ * dao references. It also contains getters and setter for the same.It contains
+ * methods for registering a new user, a valid user login, save address of user,
+ * validate that user and process login and get all the list of users.
  */
+
 @Service
 public class UserServiceImpl implements UserService {
 
-	
 	public UserDao userDao;
-	
 
 	public AddressDao addressDao;
-	
-	
+
 	public LoginDao loginDao;
-	
-	
+
+	// getter for user dao
 	public UserDao getUserDao() {
 		return userDao;
 	}
 
+	// getter for address dao
 	public AddressDao getAddressDao() {
 		return addressDao;
 	}
 
+	// getter for login dao
 	public LoginDao getLoginDao() {
 		return loginDao;
 	}
 
+	// setter for user dao
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
+	// setter for address dao
 	public void setAddressDao(AddressDao addressDao) {
 		this.addressDao = addressDao;
 	}
 
+	// setter for login dao
 	public void setLoginDao(LoginDao loginDao) {
 		this.loginDao = loginDao;
 	}
 
-	/**
-	 * This method calls the register method from UserDao class to create a new user
-	 * and returns number of rows affected.
-	 * 
-	 * @param User This is the parameter that represents User model to be
-	 *             registered.
-	 * @return int This returns the number of rows affected as 0 or 1.
-	 */
 	public int register(User user) {
+		// method call to save an
+		// entry in database login table
 		Login login = saveLogin(user.getLogin());
+		// method call to save address
+		// of user in database address table
 		Address address = saveAddress(user.getAddress());
-		if(login!=null && address!=null) {
+		// checking if login and address details are
+		// successfully saved
+		if (login != null && address != null) {
+			// saving user address
 			user.setAddress(address);
+			// saving user login
 			user.setLogin(login);
+			// registering user
 			return userDao.register(user);
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
 
-	/**
-	 * This method calls the validateUser method from UserDao class to validate user
-	 * login and returns corresponding User model.
-	 * 
-	 * @param Login This is the parameter that represents Login model to be
-	 *              validated.
-	 * @return User This returns the corresponding User model.
-	 */
 	public User validateUser(Login login) {
-		if(isValidLogin(login)) {
+		// checking user login is valid
+		if (isValidLogin(login)) {
+			// getting user details from login
 			return userDao.getUserByLogin(login);
 		}
 		return null;
 	}
 
 	public Address saveAddress(Address address) {
-		// TODO Auto-generated method stub
+		// saving address details
 		return addressDao.saveAddress(address);
 	}
 
 	public Login saveLogin(Login login) {
-		// TODO Auto-generated method stub
+		// saving user login details
 		return loginDao.saveLogin(login);
 	}
 
 	public boolean isValidLogin(Login login) {
-		// TODO Auto-generated method stub
+		// checking login by user is valid or not
 		return loginDao.isValidLogin(login);
 	}
-	
-	public List<User> getAllUsers(){
+
+	public List<User> getAllUsers() {
+		// getting list of users
 		return userDao.getAllUsers();
 	}
 

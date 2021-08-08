@@ -62,14 +62,14 @@ public class TransactionDao {
 		return result;
 	}
 	
-	public List<Transaction> viewAllTransactions(int accountId){
+	public List<Transaction> viewAllTransactions(int userId){
 		String sql = "select * from banking_system.transaction t join account a on t.account_id=a.account_id "
 				+ "join account_type at on a.account_type_id=at.account_type_id "
 				+ "where t.account_id in (select account_id from account where user_id=?) "
 				+ " order by t.tx_date_time desc";
 		List<Transaction>  allTransactions = null;
 		try {
-			allTransactions = jdbcTemplate.query(sql, new Object[] {accountId},
+			allTransactions = jdbcTemplate.query(sql, new Object[] {userId},
 					new int[] {java.sql.Types.INTEGER}, new TransactionRowMapper());
 		}
 		catch(Exception ex) {

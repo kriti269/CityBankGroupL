@@ -1,7 +1,6 @@
 package com.citybank.groupl.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,25 +19,37 @@ import com.citybank.groupl.bean.Login;
 import com.citybank.groupl.bean.User;
 import com.citybank.groupl.service.UserService;
 
+/**
+ * @since 2021-08-07
+ * @author Jatin, Kriti, Varun, Sonia
+ * @serial 1.0
+ * @summary This is the login controller for handling user login related
+ *          requests. The user service is autowired. It contains setters for for
+ *          user service. The methods are showLogin to show login page to the
+ *          users, showWelcome to show welcome page to users after successful
+ *          login, loginProcess to validate credentails provided by user upon
+ *          login, logout to logout the user.
+ */
+
+/*
+ * Date - 07-Aug-2021 Author - Jatin, Kriti, Varun, Sonia Description - This is
+ * the login controller for handling user login related requests. The user
+ * service is autowired. It contains setters for user service. The methods are
+ * showLogin to show login page to the users, showWelcome to show welcome page
+ * to users after successful login, loginProcess to validate credentails
+ * provided by user upon login, logout to logout the user.
+ */
+
 @Controller
 public class LoginControl {
 	@Autowired
 	UserService userService;
-	
+
+	// setter for user service
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
-	/**
-	 * This method handles GET request for login page and returns the view login.jsp
-	 * with new object model Login.
-	 * 
-	 * @param HttpServletRequest  This is the parameter that handles request
-	 *                            information
-	 * @param HttpServletResponse This is the parameter used to modify and send
-	 *                            appropriate response
-	 * @return ModelAndView This returns the Login model and view
-	 */
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
 		// set view name
@@ -47,65 +58,45 @@ public class LoginControl {
 		mav.addObject("login", new Login());
 		return mav;
 	}
-	
-	/**
-	 * This method handles GET request for register page and returns the view
-	 * welcome.jsp and child jsp page register.jsp with new object model User.
-	 * 
-	 * @param HttpServletRequest  This is the parameter that handles request
-	 *                            information
-	 * @param HttpServletResponse This is the parameter used to modify and send
-	 *                            appropriate response
-	 * @return ModelAndView This returns the User model inside register view
-	 */
-	
+
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public ModelAndView showWelcome(HttpServletRequest request, HttpServletResponse response) {
+		// get user role from session
 		boolean isAdmin = (Boolean) request.getSession().getAttribute("is_admin");
 		ModelAndView mav = null;
 		// check user is administrator
-		if(isAdmin) {
+		if (isAdmin) {
+			// show admin home page to user
 			mav = new ModelAndView("welcome");
-			// set model
+			// set view model attribute
 			mav.addObject("user", new User());
 		}
-		
+
 		return mav;
 	}
 
-	/**
-	 * This method handles POST request to validate user credentials and returns the
-	 * view welcome.jsp with user details set inside the model. If user is not
-	 * found, it returns to login.jsp with the error message.
-	 * 
-	 * @param HttpServletRequest  This is the parameter that handles request
-	 *                            information
-	 * @param HttpServletResponse This is the parameter used to modify and send
-	 *                            appropriate response
-	 * @return ModelAndView This returns the login or welcome view and model based
-	 *         on validation
-	 */
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("login") Login login) {
 		ModelAndView mav = null;
 		HttpSession session = request.getSession();
 		// call validateUser method of UserService class to validate user credentials
-		 User user = userService.validateUser(login);
+		User user = userService.validateUser(login);
 		// check if user found
 		if (user != null) {
+			// setting session attributes with login details
 			session.setAttribute("user_id", user.getUserId());
 			session.setAttribute("login_id", user.getLogin().getLoginId());
 			session.setAttribute("is_admin", user.getIsAdmin());
-			// set view welcome.jsp
-			
-			// set user's first name as object
-			if(user.getIsAdmin()) {
+
+			if (user.getIsAdmin()) {
+				// set view welcome.jsp
+				// set user's first name as object
 				mav = new ModelAndView("welcome");
-				// set model
+				// set model attribute
 				mav.addObject("user", new User());
-			}
-			else {
+			} else {
+				// setting redirect view user account if not admin
 				mav = new ModelAndView("redirect:/getUserAccounts");
 			}
 		} else {
@@ -116,15 +107,15 @@ public class LoginControl {
 		}
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		//remove logged in user details
+		// remove logged in user details
 		session.setAttribute("user_id", null);
 		session.setAttribute("is_admin", null);
-		// set view welcome.jsp
-		RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
+		// set view as index page
+		RequestDispatcher RequetsDispatcherObj = request.getRequestDispatcher("/index.jsp");
 		RequetsDispatcherObj.forward(request, response);
 	}
 }
